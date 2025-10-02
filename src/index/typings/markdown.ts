@@ -300,12 +300,12 @@ export abstract class MathBlock extends MarkdownBlock {
     $index?: number;
 
     static isMathBlock(object: Indexable | undefined): object is MathBlock {
-        return object !== undefined && object.$types.includes('block-math-booster');
+        return object !== undefined && object.$types.includes('math-block');
     }
 }
 
 export class TheoremCalloutBlock extends MathBlock implements Linkbearing {
-    static TYPES = ["markdown", "block", "block-math-booster", "block-theorem", LINKBEARING_TYPE];
+    static TYPES = ["markdown", "block", "math-block", "block-theorem", LINKBEARING_TYPE];
 
     $types: string[] = TheoremCalloutBlock.TYPES;
     $typename: string = "Theorem Callout Block";
@@ -390,7 +390,7 @@ export class TheoremCalloutBlock extends MathBlock implements Linkbearing {
 }
 
 export class EquationBlock extends MathBlock {
-    static TYPES = ["markdown", "block", "block-math-booster", "block-equation"];
+    static TYPES = ["markdown", "block", "math-block", "block-equation"];
 
     $types: string[] = EquationBlock.TYPES;
     $typename: string = "Equation Block";

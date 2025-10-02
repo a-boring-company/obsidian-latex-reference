@@ -230,7 +230,7 @@ abstract class WholeVaultSearchCore extends MathSearchCore {
 
 export class WholeVaultTheoremEquationSearchCore extends WholeVaultSearchCore {
     async getUnsortedSuggestions(): Promise<Set<string>> {
-        return this.index.getByType('block-math-booster');
+        return this.index.getByType('math-block');
     }
 }
 

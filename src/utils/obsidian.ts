@@ -127,6 +127,8 @@ export function resolveLinktext(app: App, linktext: string, sourcePath: string):
     const targetCache = app.metadataCache.getFileCache(targetFile);
     if (!targetCache) return null;
     const result = resolveSubpath(targetCache, subpath);
+    // Filter out FootnoteSubpathResult which we don't handle
+    if (result && 'footnote' in result) return null;
     return { file: targetFile, subpathResult: result };
 }
 
