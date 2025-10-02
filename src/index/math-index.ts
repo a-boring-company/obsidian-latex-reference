@@ -220,7 +220,8 @@ export class MathIndex {
                 // for each theorem callout.
                 // They may be additionally formatted according to the settings.
                 const resolvedSettings = Object.assign({}, settings, block.$settings);
-                if (block.$settings.number == 'auto') {
+                
+                if (block.$numberSpec == 'auto') {
                     block.$index = autoNumberedTheoremCount;
                     (resolvedSettings as ResolvedMathSettings)._index = autoNumberedTheoremCount++;
                 }

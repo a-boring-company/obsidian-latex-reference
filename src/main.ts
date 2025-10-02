@@ -165,7 +165,6 @@ export default class LatexReferencer extends Plugin {
 
 		// equation numbers
 		this.registerMarkdownPostProcessor(createEquationNumberProcessor(this));
-		this.app.workspace.onLayoutReady(() => this.forceRerender());
 
 		// proof environments
 		this.registerMarkdownPostProcessor(createProofProcessor(this));
@@ -384,16 +383,5 @@ export default class LatexReferencer extends Plugin {
 				new MigrationModal(this).open();
 			}
 		});
-	}
-
-	forceRerender() {
-		setTimeout(async () => {
-			for (const leaf of this.app.workspace.getLeavesOfType('markdown')) {
-				const view = leaf.view as MarkdownView;
-				const state = view.getEphemeralState();
-				view.previewMode.rerender(true);
-				view.setEphemeralState(state);
-			}
-		}, 800);
 	}
 }

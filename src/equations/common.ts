@@ -23,6 +23,9 @@ export function replaceMathTag(displayMathEl: HTMLElement, equation: EquationBlo
 }
 
 export function getMathTextWithTag(equation: EquationBlock, lineByLine?: boolean): string | undefined {
+    // Guard against undefined mathText
+    if (!equation.$mathText) return undefined;
+    
     if (equation.$printName !== null) {
         const tagResult = equation.$printName.match(/^\((.*)\)$/);
         if (tagResult) {
@@ -34,6 +37,9 @@ export function getMathTextWithTag(equation: EquationBlock, lineByLine?: boolean
 }
 
 export function insertTagInMathText(text: string, tagContent: string, lineByLine?: boolean): string {
+    // Guard against undefined/null text
+    if (!text) return `\\tag{${tagContent}}`;
+    
     if (!lineByLine) return text + `\\tag{${tagContent}}`;
 
     const alignResult = text.match(/^\s*\\begin\{align\}([\s\S]*)\\end\{align\}\s*$/);

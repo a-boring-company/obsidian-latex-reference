@@ -316,7 +316,16 @@ class TheoremCalloutRenderer extends MarkdownRenderChild {
             if (titleInnerEl?.childNodes.length) {
                 if (titleInnerEl.textContent !== capitalize(settings.type) && titleInnerEl.textContent !== capitalize(THEOREM_LIKE_ENV_ID_PREFIX_MAP[settings.type as TheoremLikeEnvID])) {
                     theoremSubtitleEl = createSpan({ cls: "theorem-callout-subtitle" });
-                    theoremSubtitleEl.replaceChildren('(', ...titleInnerEl.childNodes, ')');
+                    // Filter out block ID links (elements with class "internal-link" and data-href starting with "#^")
+                    const filteredNodes = Array.from(titleInnerEl.childNodes).filter(node => {
+                        if (node.nodeType === Node.ELEMENT_NODE) {
+                            const el = node as HTMLElement;
+                            const href = el.getAttribute('data-href') || el.getAttribute('href');
+                            return !(el.classList.contains('internal-link') && href?.startsWith('#^'));
+                        }
+                        return true;
+                    });
+                    theoremSubtitleEl.replaceChildren('(', ...filteredNodes, ')');
                 }
             }
         }

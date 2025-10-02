@@ -10,7 +10,8 @@
     "moduleResolution": "bundler",
     "importHelpers": true,
     "isolatedModules": true,
-	"strictNullChecks": true,
+	  "strictNullChecks": true,
+    "useDefineForClassFields": false,
     "lib": [
       "DOM",
       "ES2022",

@@ -274,7 +274,7 @@ export class MathContextSettingsHelper extends SettingsHelper<MathContextSetting
         this.addHeading('Theorem callouts - general');
 
         this.addProfileSetting();
-        const styleSetting = this.addDropdownSetting("theoremCalloutStyle", THEOREM_CALLOUT_STYLES, "Style", undefined, undefined, () => this.plugin.forceRerender());
+        const styleSetting = this.addDropdownSetting("theoremCalloutStyle", THEOREM_CALLOUT_STYLES, "Style");
         styleSetting.descEl.replaceChildren(
             "Choose between your custom style and preset styles. You might need to reopen the notes or reload the app to see the changes. See the documentation for how to customize the appearance of theorem callouts. \"Custom\" is recommended, since it will give you the most control. You can view the CSS snippets for all the preset styles in the documentation or README on GitHub. The preset styles are only for a trial purpose, and they might not work well with some non-default themes.",
         );

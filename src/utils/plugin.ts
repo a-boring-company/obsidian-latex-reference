@@ -111,9 +111,9 @@ export const convertTheoremCalloutFromV1ToV2 = (data: string, page: MarkdownPage
             if (!block.$v1) continue
 
             const newHeadLines = [generateTheoremCalloutFirstLine({
-                type: block.$settings.type,
-                number: block.$settings.number,
-                title: block.$settings.title
+                type: block.$theoremType,
+                number: block.$numberSpec,
+                title: block.$theoremSubtitle
             })];
             const legacySettings = block.$settings as any;
             if (legacySettings.label) newHeadLines.push(`> %% label: ${legacySettings.label} %%`);

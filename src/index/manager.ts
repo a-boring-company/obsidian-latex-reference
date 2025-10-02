@@ -162,7 +162,6 @@ export class MathIndexManager extends Component {
             });
 
             this.trigger("update", this.revision);
-            this.trigger('index-updated', file);
             return parsed;
         }
 
