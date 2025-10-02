@@ -274,7 +274,7 @@ export class MathContextSettingsHelper extends SettingsHelper<MathContextSetting
         this.addHeading('Theorem callouts - general');
 
         this.addProfileSetting();
-        const styleSetting = this.addDropdownSetting("theoremCalloutStyle", THEOREM_CALLOUT_STYLES, "Style", undefined, undefined, () => this.plugin.forceRerender());
+        const styleSetting = this.addDropdownSetting("theoremCalloutStyle", THEOREM_CALLOUT_STYLES, "Style");
         styleSetting.descEl.replaceChildren(
             "Choose between your custom style and preset styles. You might need to reopen the notes or reload the app to see the changes. See the documentation for how to customize the appearance of theorem callouts. \"Custom\" is recommended, since it will give you the most control. You can view the CSS snippets for all the preset styles in the documentation or README on GitHub. The preset styles are only for a trial purpose, and they might not work well with some non-default themes.",
         );
@@ -436,98 +436,12 @@ export class ExtraSettingsHelper extends SettingsHelper<ExtraSettings> {
         this.addToggleSetting("enableEquationSuggestDataview", "Enable");
         this.addTextSetting("triggerEquationSuggestDataview", "Trigger");
 
-        // projects
-        // this.addTextSetting("projectInfix", "Link infix", "Specify the infix to connect a project name and a theorem title or an equation number.");
-        // this.addTextSetting("projectSep", "Separator for nested projects");
-
-        // indexer/importer
-        // this.contentEl.createEl("h3", { text: "Indexing" });
         this.addHeading('Indexing');
 
         this.addSliderSetting('importerNumThreads', { min: 1, max: 10, step: 1 }, "Indexer threads", "The maximum number of thread used for indexing.");
         this.addSliderSetting('importerUtilization', { min: 0.1, max: 1.0, step: 0.01 }, 'Indexer CPU utilization', "The CPU utilization that indexer threads should use.");
     }
 }
-
-
-// export class ProjectSettingsHelper {
-//     plugin: LatexReferencer;
-//     file: TAbstractFile;
-
-//     constructor(public contentEl: HTMLElement, public parent: ContextSettingModal) {
-//         this.plugin = parent.plugin;
-//         this.file = parent.file;
-//     }
-
-//     makeSettingPane() {
-//         const project = this.plugin.projectManager.getProject(this.file);
-//         const noteOrFolder = this.file instanceof TFile ? "note" : "folder";
-//         let status = "";
-//         if (project) {
-//             if (project.root == this.file) {
-//                 status = `This ${noteOrFolder} is a project's root.`;
-//             } else {
-//                 status = `This ${noteOrFolder} belongs to the project "${project.name}" (root: ${project.root.path}).`;
-//             }
-//         } else {
-//             status = `This ${noteOrFolder} doesn't belong to any project.`;
-//         }
-
-//         this.contentEl.createEl("h4", {text: "Project (experimental)"})
-
-//         this.contentEl.createDiv({
-//             text: PROJECT_DESCRIPTION + " " + status,
-//             cls: ["setting-item-description", "math-booster-setting-item-description"]
-//         });
-//         this.addRootSetting();
-//         if (project) {
-//             this.addNameSetting(project);
-//         }
-//     }
-
-//     addRootSetting(): Setting | undefined {
-//         const prettyName = "Set as project root";
-//         const description = this.file instanceof TFile
-//             ? "If turned on, this file itself will be treated as a project."
-//             : "If turned on, all the files under this folder will be treated as a single project.";
-//         let index: AbstractFileIndex | undefined
-//         if (this.file instanceof TFile) {
-//             index = this.plugin.index.getNoteIndex(this.file)
-//         } else if (this.file instanceof TFolder) {
-//             index = this.plugin.index.getFolderIndex(this.file)
-//         }
-//         if (index) {
-//             const setting = new Setting(this.contentEl).setName(prettyName).setDesc(description);
-//             setting.addToggle((toggle) => {
-//                 toggle.setValue(index!.isProjectRoot)
-//                     .onChange((value) => {
-//                         if (value) {
-//                             this.plugin.projectManager.add(this.file);
-//                         } else {
-//                             this.plugin.projectManager.delete(this.file);
-//                         }
-//                         this.parent.close();
-//                         this.parent.open();
-//                     });
-//             });
-//             return setting;
-//         }
-//     }
-
-//     addNameSetting(project: Project): Setting {
-//         const prettyName = "Project name";
-//         const description = "A project name can contain inline math and doesn't have to be unique.";
-//         const setting = new Setting(this.contentEl).setName(prettyName).setDesc(description);
-
-//         setting.addText((text) => {
-//             text.setValue(project.name)
-//                 .onChange((value) => {
-//                     project.name = value;
-//                 })
-//         });
-//         return setting;
-//     }
-// }
 
 
 function addFoldOptionSetting(el: HTMLElement, name: string, onChange: (fold: FoldOption) => any, defaultValue?: FoldOption) {

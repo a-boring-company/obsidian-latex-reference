@@ -300,40 +300,40 @@ export abstract class MathBlock extends MarkdownBlock {
     $index?: number;
 
     static isMathBlock(object: Indexable | undefined): object is MathBlock {
-        return object !== undefined && object.$types.includes('block-math-booster');
+        return object !== undefined && object.$types.includes('math-block');
     }
 }
 
 export class TheoremCalloutBlock extends MathBlock implements Linkbearing {
-    static TYPES = ["markdown", "block", "block-math-booster", "block-theorem", LINKBEARING_TYPE];
+    static TYPES = ["markdown", "block", "math-block", "block-theorem", LINKBEARING_TYPE];
 
     $types: string[] = TheoremCalloutBlock.TYPES;
     $typename: string = "Theorem Callout Block";
     $type: string = "theorem";
 
     /** True if written in the version-1 format of '> [!math|{"type":"theorem",...}]"' */
-    $v1: boolean;
+    $v1!: boolean;
 
     /** The settings for this theorem callout. */
-    $settings: MinimalTheoremCalloutSettings;
+    $settings!: MinimalTheoremCalloutSettings;
 
-    $titleSuffix: string;
+    $titleSuffix!: string;
 
     /** e.g. Theorem 1.1 (Cauchy-Schwarz) -> "Theorem 1.1" */
-    $theoremMainTitle: string;
+    $theoremMainTitle!: string;
 
     /** e.g. Theorem 1.1 (Cauchy-Schwarz) -> "theorem" */
     get $theoremType(): string {
-        return this.$settings.type;
+        return this.$settings?.type ?? 'theorem';
     }
 
     get $numberSpec(): string {
-        return this.$settings.number;
+        return this.$settings?.number ?? 'auto';
     }
 
     /** e.g. Theorem 1.1 (Cauchy-Schwarz) -> "Cauchy-Schwarz" */
     get $theoremSubtitle(): string | undefined {
-        return this.$settings.title;
+        return this.$settings?.title;
     }
 
     /** e.g. "Theorem 1.1 (Cauchy-Schwarz)" */
@@ -342,7 +342,7 @@ export class TheoremCalloutBlock extends MathBlock implements Linkbearing {
     }
 
     /** Additional metadata specified via comments */
-    $main: boolean;
+    $main!: boolean;
 
     static from(
         object: JsonTheoremCalloutBlock,
@@ -390,7 +390,7 @@ export class TheoremCalloutBlock extends MathBlock implements Linkbearing {
 }
 
 export class EquationBlock extends MathBlock {
-    static TYPES = ["markdown", "block", "block-math-booster", "block-equation"];
+    static TYPES = ["markdown", "block", "math-block", "block-equation"];
 
     $types: string[] = EquationBlock.TYPES;
     $typename: string = "Equation Block";

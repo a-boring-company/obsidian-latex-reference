@@ -75,6 +75,7 @@ export function markdownImport(
     // have actual metadata will be stored to save on memory pressure.
     const blocks = new BTree<number, JsonMarkdownBlock>(undefined, (a, b) => a - b);
     let blockOrdinal = 1;
+    
     for (const block of metadata.sections || []) {
         // Skip headings blocks, we handle them specially as sections.
         if (block.type === "heading") continue;

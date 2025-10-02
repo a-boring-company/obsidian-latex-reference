@@ -42,7 +42,7 @@ abstract class ProofWidget extends WidgetType {
 }
 
 class BeginProofWidget extends ProofWidget {
-    containerEl: HTMLElement | null;
+    declare containerEl: HTMLElement | null;
 
     constructor(
         plugin: LatexReferencer, profile: Profile,
@@ -81,7 +81,7 @@ class BeginProofWidget extends ProofWidget {
 
 
 class EndProofWidget extends ProofWidget {
-    containerEl: HTMLElement | null;
+    declare containerEl: HTMLElement | null;
 
     initDOM(): HTMLElement {
         return makeProofElement("end", this.profile);
