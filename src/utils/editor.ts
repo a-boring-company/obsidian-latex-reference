@@ -1,6 +1,5 @@
 import { EditorState, ChangeSet, RangeValue, RangeSet, SelectionRange } from '@codemirror/state';
 import { SyntaxNodeRef } from '@lezer/common';
-import { MathInfoSet } from 'render-math-in-callouts';
 import { EditorPosition, Loc, MarkdownView, editorLivePreviewField } from "obsidian";
 
 export function locToEditorPosition(loc: Loc): EditorPosition {
@@ -36,14 +35,6 @@ export function printNode(node: SyntaxNodeRef, state: EditorState) {
     );
 }
 
-export function printMathInfoSet(set: MathInfoSet, state: EditorState) {
-    // Debugging utility
-    console.log("MathInfoSet:");
-    set.between(0, state.doc.length, (from, to, value) => {
-        console.log(`  ${from}-${to}: ${value.mathText} ${value.display ? "(display)" : ""} ${value.insideCallout ? "(in callout)" : ""} ${value.overlap === undefined ? "(overlap not checked yet)" : value.overlap ? "(overlapping)" : "(non-overlapping)"}`);
-    });
-}
-
 export function nodeTextQuoteSymbolTrimmed(node: SyntaxNodeRef, state: EditorState, quoteLevel: number): string | undefined {
     const quoteSymbolPattern = new RegExp(`((>\\s*){${quoteLevel}})(.*)`);
     const quoteSymbolMatch = nodeText(node, state).match(quoteSymbolPattern);
@@ -54,7 +45,7 @@ export function nodeTextQuoteSymbolTrimmed(node: SyntaxNodeRef, state: EditorSta
 
 export function printChangeSet(changes: ChangeSet) {
     changes.iterChanges(
-        (fromA, toA, fromB, toB, inserted) => {
+        (fromA: number, toA: number, fromB: number, toB: number, inserted: any) => {
             console.log(`${fromA}-${toA}: "${inserted.toString()}" inserted (${fromB}-${toB} in new state)`);
         }
     );

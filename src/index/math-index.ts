@@ -24,37 +24,20 @@ export class MathIndex {
     /** Map parent object to it's direct child objects. */
     private children: Map<string, Set<string>>;
 
-    // Indices for the various accepted query types. These will probably be moved to a different type later.
+    // Indices for the various accepted query types.
     /** Global map of object type -> list of all objects of that type. */
     private types: InvertedIndex<string>;
-    // /** Tracks exact tag occurence in objects. */
-    // private etags: InvertedIndex<string>;
-    // /** Tracks tag occurence in objects. */
-    // private tags: InvertedIndex<string>;
     /** Maps link strings to the object IDs that link to those links. */
     private links: InvertedIndex<string>;
-    /** Tracks the existence of fields (indexed by normalized key name). */
-    // private fields: Map<string, FieldIndex>; // irrelevant because we are not going to search/query
-    /**
-     * Quick searches for objects in folders. This index only tracks top-level objects - it is expanded recursively to
-     * find child objects.
-     */
-    // private folder: FolderIndex; // irrelevant because we are not going to search/query
 
-    public constructor(public plugin: LatexReferencer, public vault: Vault, public metadataCache: MetadataCache,
-        // public settings: Settings // irrelevant because we are not going to search/query
-    ) {
+    public constructor(public plugin: LatexReferencer, public vault: Vault, public metadataCache: MetadataCache) {
         this.revision = 0;
         this.ids = new Set();
         this.objects = new Map();
         this.children = new Map();
 
         this.types = new InvertedIndex();
-        // this.etags = new InvertedIndex();
-        // this.tags = new InvertedIndex();
         this.links = new InvertedIndex();
-        // this.fields = new Map();
-        // this.folder = new FolderIndex(vault);
     }
 
     /** Update the revision of the datastore due to an external update. */
@@ -142,7 +125,7 @@ export class MathIndex {
             return false;
         }
 
-        // Recursively delete all child objects.
+        // Recursively delete all child objects
         const children = this.children.get(id);
         if (children) {
             for (let child of children) {
@@ -152,7 +135,7 @@ export class MathIndex {
             this.children.delete(id);
         }
 
-        // Drop this object from the appropriate maps.
+        // Drop this object from the appropriate maps
         this._unindex(object);
         this.ids.delete(id);
         this.objects.delete(id);
@@ -163,67 +146,25 @@ export class MathIndex {
     private _index(object: Indexable) {
         this.types.set(object.$id, object.$types);
 
-        // // Exact and derived tags.
-        // if (object.$types.contains(TAGGABLE_TYPE) && iterableExists(object, "$tags")) {
-        //     const tags = object.$tags as Set<string>;
-
-        //     this.etags.set(object.$id, tags);
-        //     this.tags.set(object.$id, extractSubtags(tags));
-        // }
-
-        // Exact and derived links.
+        // Index links for backlink tracking
         if (object.$types.contains(LINKBEARING_TYPE) && iterableExists(object, "$links")) {
             this.links.set(
                 object.$id,
                 (object.$links as Link[]).map((link) => link.obsidianLink())
             );
         }
-
-        // // All fields on an object.
-        // if (object.$types.contains(FIELDBEARING_TYPE) && "fields" in object) {
-        //     for (const field of object.fields as Iterable<Field>) {
-        //         // Skip any index fields.
-        //         if (INDEX_FIELDS.has(field.key)) continue;
-
-        //         const norm = field.key.toLowerCase();
-        //         if (!this.fields.has(norm)) this.fields.set(norm, new FieldIndex(false));
-
-        //         this.fields.get(norm)!.add(object.$id, field.value);
-        //     }
-        // }
     }
 
     /** Remove the given indexable from all indices. */
     private _unindex(object: Indexable) {
         this.types.delete(object.$id, object.$types);
 
-        // if (object.$types.contains(TAGGABLE_TYPE) && iterableExists(object, "$tags")) {
-        //     const tags = object.$tags as Set<string>;
-
-        //     this.etags.delete(object.$id, tags);
-        //     this.tags.delete(object.$id, extractSubtags(tags));
-        // }
-
         if (object.$types.contains(LINKBEARING_TYPE) && iterableExists(object, "$links")) {
-            // Assume links are normalized when deleting them. Could be broken but I hope not. We can always use a 2-way index to
-            // fix this if we encounter non-normalized links.
             this.links.delete(
                 object.$id,
                 (object.$links as Link[]).map((link) => link.obsidianLink())
             );
         }
-
-        // if (object.$types.contains(FIELDBEARING_TYPE) && "fields" in object) {
-        //     for (const field of object.fields as Iterable<Field>) {
-        //         // Skip any index fields.
-        //         if (INDEX_FIELDS.has(field.key)) continue;
-
-        //         const norm = field.key.toLowerCase();
-        //         if (!this.fields.has(norm)) continue;
-
-        //         this.fields.get(norm)!.delete(object.$id, field.value);
-        //     }
-        // }
     }
 
     /** Completely clear the datastore of all values. */
@@ -233,10 +174,7 @@ export class MathIndex {
         this.children.clear();
 
         this.types.clear();
-        // this.tags.clear();
-        // this.etags.clear();
         this.links.clear();
-        // this.fields.clear();
 
         this.revision++;
     }

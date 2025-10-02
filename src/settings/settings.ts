@@ -261,8 +261,6 @@ export const DEFAULT_EXTRA_SETTINGS: Required<ExtraSettings> = {
     modifierToNoteLink: "Shift",
     showModifierInstruction: true,
     suggestLeafOption: "Current tab", 
-    // projectInfix: " > ",
-    // projectSep: "/",
     importerNumThreads: 2,
     importerUtilization: 0.75,
     showTheoremCalloutEditButton: false,

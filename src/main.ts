@@ -39,7 +39,11 @@ export default class LatexReferencer extends Plugin {
 	indexManager: MathIndexManager;
 	editorExtensions: Extension[];
 	theoremCalloutsField: StateField<RangeSet<TheoremCalloutInfo>>;
-	// proofPositionField: StateField<ProofPosition[]>;
+	/** 
+	 * Stores the last linktext that triggered a hover page preview.
+	 * Used by reading view renderers to display theorem/equation numbers in hover previews.
+	 * Set by page-preview patch, consumed by theorem-callouts/renderer and equations/reading-view.
+	 */
 	lastHoverLinktext: string | null;
 
 	async onload() {
@@ -190,7 +194,6 @@ export default class LatexReferencer extends Plugin {
 		this.settings = { [VAULT_ROOT]: JSON.parse(JSON.stringify(DEFAULT_SETTINGS)) };
 		this.extraSettings = JSON.parse(JSON.stringify(DEFAULT_EXTRA_SETTINGS));
 		this.excludedFiles = [];
-		// this.projectManager = new ProjectManager(this);
 
 		const loadedData = await this.loadData();
 		if (loadedData) {
@@ -237,11 +240,6 @@ export default class LatexReferencer extends Plugin {
 			}
 
 			this.excludedFiles = excludedFiles;
-
-			// At the time the plugin is loaded, the data vault is not ready and 
-			// vault.getAbstractFile() returns null for any path.
-			// So we have to wait for the vault to start up and store a dumped version of the projects until then.
-			// this.projectManager = new ProjectManager(this, dumpedProjects);
 		}
 	}
 
@@ -251,7 +249,6 @@ export default class LatexReferencer extends Plugin {
 			settings: this.settings,
 			extraSettings: this.extraSettings,
 			excludedFiles: this.excludedFiles,
-			// dumpedProjects: this.projectManager.dump(),
 		});
 	}
 
@@ -284,8 +281,9 @@ export default class LatexReferencer extends Plugin {
 	setProfileTagAsCSSClass(view: MarkdownView) {
 		if (!view.file) return;
 		const profile = getProfile(this, view.file);
+		// Generate both old (math-booster-*) and new (latex-referencer-*) class names for backward compatibility
 		const classes = [
-			...profile.meta.tags.map((tag) => `math-booster-${tag}`), // deprecated
+			...profile.meta.tags.map((tag) => `math-booster-${tag}`), // deprecated - maintained for custom CSS compatibility
 			...profile.meta.tags.map((tag) => `latex-referencer-${tag}`),
 		];
 		for (const el of [getMarkdownSourceViewEl(view), getMarkdownPreviewViewEl(view)]) {
@@ -313,9 +311,6 @@ export default class LatexReferencer extends Plugin {
 		// proofs
 		if (this.extraSettings.enableProof) {
 			this.editorExtensions.push(createProofDecoration(this));
-			// this.editorExtensions.push(this.proofPositionField = proofPositionFieldFactory(this));
-			// this.editorExtensions.push(proofDecorationFactory(this));
-			// this.editorExtensions.push(proofFoldFactory(this));
 		}
 
 		this.app.workspace.updateOptions();

@@ -23,8 +23,6 @@ export class MathIndexManager extends Component {
     index: MathIndex;
     /** Asynchronous multi-threaded file importer with throttling. */
     importer: MathImporter;
-    // /** Local-storage backed cache of metadata objects. */
-    // persister: LocalStorageCache;
     /** Only set when the index is in the midst of initialization; tracks current progress. */
     initializer?: MathIndexInitializer;
     /** If true, the index is fully hydrated and all files have been indexed. */
@@ -41,7 +39,6 @@ export class MathIndexManager extends Component {
         this.app = app;
         this.vault = app.vault;
         this.metadataCache = app.metadataCache;
-        // this.persister = new LocalStorageCache("primary", version);
         this.events = new Events();
 
         this.index = new MathIndex(plugin, app.vault, app.metadataCache);
@@ -172,13 +169,13 @@ export class MathIndexManager extends Component {
         throw new Error("Encountered unrecognized import result type: " + (result as any).type);
     }
 
-    /** Given an array of TFiles, this function does two things:
-     * 1. It reloads (re-imports) each file in the array.
-     * 2. It re-computes the theorem/equation numbers for all the files containing blocks 
-     *    that each file in the array previously linked to.
-     * 　　EDIT: Wow, I forgot to update the files that each file in the array newly links to.
+    /** 
+     * Updates the index when a file changes:
+     * 1. Reloads the changed file
+     * 2. Re-computes theorem/equation numbers for all files whose blocks were or are now 
+     *    referenced by the changed file (handles both old and new link destinations)
      * 
-     * This should be named like updateOldAndNewLinkDestinations.
+     * Uses a Set to avoid updating the same file multiple times.
      */
     public async updateLinked(file: TFile) {
         // Since only linked/referenced equations are numbered, we need to recompute 
