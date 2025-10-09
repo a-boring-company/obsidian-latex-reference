@@ -1,67 +1,78 @@
-import { EquationBlock } from 'index/typings/markdown';
-import { TFile, HeadingSubpathResult, BlockSubpathResult, App } from 'obsidian';
+import { EquationBlock, } from 'index/typings/markdown';
+import { App, BlockSubpathResult, HeadingSubpathResult, TFile, } from 'obsidian';
 import * as MathLinks from 'obsidian-mathlinks';
 
+import { MathIndex, } from 'index/math-index';
+import { MarkdownPage, MathBlock, TheoremCalloutBlock, } from 'index/typings/markdown';
 import LatexReferencer from 'main';
-import { MathIndex } from 'index/math-index';
-import { MarkdownPage, MathBlock, TheoremCalloutBlock } from 'index/typings/markdown';
-
 
 export class CleverefProvider extends MathLinks.Provider {
-    app: App;
-    index: MathIndex;
+  app: App;
+  index: MathIndex;
 
-    constructor(mathLinks: any, public plugin: LatexReferencer) {
-        super(mathLinks);
-        this.app = plugin.app;
-        this.index = plugin.indexManager.index;
-    }
+  constructor(mathLinks: any, public plugin: LatexReferencer,) {
+    super(mathLinks,);
+    this.app = plugin.app;
+    this.index = plugin.indexManager.index;
+  }
 
-    provide(
-        parsedLinktext: { path: string; subpath: string; },
-        targetFile: TFile | null,
-        targetSubpathResult: HeadingSubpathResult | BlockSubpathResult | null,
-    ): string | null {
-        const { path, subpath } = parsedLinktext;
-        if (targetFile === null) return null;
-        const page = this.index.load(targetFile.path);
-        if (!MarkdownPage.isMarkdownPage(page)) return null
+  provide(
+    parsedLinktext: { path: string; subpath: string; },
+    targetFile: TFile | null,
+    targetSubpathResult: HeadingSubpathResult | BlockSubpathResult | null,
+  ): string | null {
+    const { path, subpath, } = parsedLinktext;
+    if (targetFile === null) return null;
+    const page = this.index.load(targetFile.path,);
+    if (!MarkdownPage.isMarkdownPage(page,)) return null;
 
-        // only path, no subpath: return page.$refName if it exists, otherwise there's nothing to do
-        if (!subpath) return page.$refName ?? null;
+    // only path, no subpath: return page.$refName if it exists, otherwise there's nothing to do
+    if (!subpath) return page.$refName ?? null;
 
-        const processedPath = path ? page.$refName ?? path : '';
+    const processedPath = path ? page.$refName ?? path : '';
 
-        // subpath resolution failed, do nothing
-        if (targetSubpathResult === null) return null;
+    // subpath resolution failed, do nothing
+    if (targetSubpathResult === null) return null;
 
-        // subpath resolution succeeded
-        if (targetSubpathResult.type === 'block') {
-            // handle block links
+    // subpath resolution succeeded
+    if (targetSubpathResult.type === 'block') {
+      // handle block links
 
-            // get the target block
-            const block = page.$blocks.get(targetSubpathResult.block.id);
+      // get the target block
+      const block = page.$blocks.get(targetSubpathResult.block.id,);
 
-            if (MathBlock.isMathBlock(block)) {
-                // display text set manually: higher priority
-                if (block.$display) return path && this.shouldShowNoteTitle(block) ? processedPath + ' > ' + block.$display : block.$display;
-                // display text computed automatically: lower priority
-                if (block.$refName) return path && this.shouldShowNoteTitle(block) ? processedPath + ' > ' + block.$refName : block.$refName;
-            }
-        } else {
-            // handle heading links
-            // just ignore (return null) if we don't need to perform any particular processing
-            if (path && page.$refName) {
-                return processedPath + ' > ' + subpath;
-            }
+      if (MathBlock.isMathBlock(block,)) {
+        // display text set manually: higher priority
+        if (block.$display) {
+          return path && this.shouldShowNoteTitle(block,)
+            ? processedPath + ' > ' + block.$display
+            : block.$display;
         }
-
-        return null;
+        // display text computed automatically: lower priority
+        if (block.$refName) {
+          return path && this.shouldShowNoteTitle(block,)
+            ? processedPath + ' > ' + block.$refName
+            : block.$refName;
+        }
+      }
+    } else {
+      // handle heading links
+      // just ignore (return null) if we don't need to perform any particular processing
+      if (path && page.$refName) {
+        return processedPath + ' > ' + subpath;
+      }
     }
 
-    shouldShowNoteTitle(block: MathBlock): boolean {
-        if (TheoremCalloutBlock.isTheoremCalloutBlock(block)) return this.plugin.extraSettings.noteTitleInTheoremLink;
-        if (EquationBlock.isEquationBlock(block)) return this.plugin.extraSettings.noteTitleInEquationLink;
-        return true;
+    return null;
+  }
+
+  shouldShowNoteTitle(block: MathBlock,): boolean {
+    if (TheoremCalloutBlock.isTheoremCalloutBlock(block,)) {
+      return this.plugin.extraSettings.noteTitleInTheoremLink;
     }
+    if (EquationBlock.isEquationBlock(block,)) {
+      return this.plugin.extraSettings.noteTitleInEquationLink;
+    }
+    return true;
+  }
 }

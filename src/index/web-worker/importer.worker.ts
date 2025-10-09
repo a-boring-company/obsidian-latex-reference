@@ -1,25 +1,30 @@
-import { markdownImport } from "index/import/markdown";
-import { ImportCommand, MarkdownImportResult } from "index/web-worker/message";
-import { Transferable } from "index/web-worker/transferable";
+import { markdownImport, } from 'index/import/markdown';
+import { ImportCommand, MarkdownImportResult, } from 'index/web-worker/message';
+import { Transferable, } from 'index/web-worker/transferable';
 
 /** Web worker entry point for importing. */
-onmessage = (event) => {
-    try {
-        const message = Transferable.value(event.data) as ImportCommand;
+onmessage = (event,) => {
+  try {
+    const message = Transferable.value(event.data,) as ImportCommand;
 
-        if (message.type === "markdown") {
-            const markdown = markdownImport(message.path, message.contents, message.metadata, message.excludeExampleCallout);
+    if (message.type === 'markdown') {
+      const markdown = markdownImport(
+        message.path,
+        message.contents,
+        message.metadata,
+        message.excludeExampleCallout,
+      );
 
-            postMessage(
-                Transferable.transferable({
-                    type: "markdown",
-                    result: markdown,
-                } as MarkdownImportResult)
-            );
-        } else {
-            postMessage({ $error: "Unsupported import method." });
-        }
-    } catch (error) {
-        postMessage({ $error: error.message });
+      postMessage(
+        Transferable.transferable({
+          type: 'markdown',
+          result: markdown,
+        } as MarkdownImportResult,),
+      );
+    } else {
+      postMessage({ $error: 'Unsupported import method.', },);
     }
+  } catch (error) {
+    postMessage({ $error: error.message, },);
+  }
 };
