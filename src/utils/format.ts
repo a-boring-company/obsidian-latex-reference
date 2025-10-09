@@ -115,7 +115,7 @@ export function formatTitle(
   settings: ResolvedMathSettings,
   noTitleSuffix: boolean = false,
 ): string {
-  let title = formatTitleWithoutSubtitle(plugin, file, settings,);
+  const title = formatTitleWithoutSubtitle(plugin, file, settings,);
   return addSubTitle(title, settings, noTitleSuffix,);
 }
 

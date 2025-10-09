@@ -67,7 +67,7 @@ class BeginProofWidget extends ProofWidget {
   }
 
   initDOM(): HTMLElement {
-    let display = this.linktext
+    const display = this.linktext
       ? `${this.profile.body.proof.linkedBeginPrefix} [[${this.linktext}]]${this.profile.body.proof.linkedBeginSuffix}`
       : this.display;
 

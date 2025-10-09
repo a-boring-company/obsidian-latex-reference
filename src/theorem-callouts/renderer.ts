@@ -496,7 +496,7 @@ class TheoremCalloutRenderer extends MarkdownRenderChild {
     if (!view) return null;
 
     if (isEditingView(view,) && this.file.path === view.file?.path && view.editor.cm) {
-      let sec = getSectionCacheOfDOM(this.containerEl, 'callout', view.editor.cm, cache,)
+      const sec = getSectionCacheOfDOM(this.containerEl, 'callout', view.editor.cm, cache,)
         ?? getSectionCacheFromMouseEvent(event, 'callout', view.editor.cm, cache,);
       if (sec) return sec.position.start.line;
     }

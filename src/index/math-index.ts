@@ -85,7 +85,7 @@ export class MathIndex {
   ) {
     // Handle array inputs.
     if (Array.isArray(object,)) {
-      for (let element of object) {
+      for (const element of object) {
         this._recursiveStore(element, revision, substorer, parent,);
       }
 
@@ -139,7 +139,7 @@ export class MathIndex {
     // Recursively delete all child objects
     const children = this.children.get(id,);
     if (children) {
-      for (let child of children) {
+      for (const child of children) {
         this._deleteRecursive(child,);
       }
 
@@ -214,7 +214,7 @@ export class MathIndex {
     let blockOrdinal = 1;
     let block: Indexable | undefined;
 
-    let theorems: TheoremCalloutBlock[] = [];
+    const theorems: TheoremCalloutBlock[] = [];
     let autoNumberedTheoremCount = 0;
     let mainTheorem: TheoremCalloutBlock | null = null;
 

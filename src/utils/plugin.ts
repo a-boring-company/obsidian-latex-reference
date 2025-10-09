@@ -120,7 +120,7 @@ export function insertDisplayMath(editor: Editor,) {
 
   const head = nonQuoteMatch?.index ?? line.length;
   const quoteLevel = line.slice(0, head,).match(/>\s*/g,)?.length ?? 0;
-  let insert = '$$\n' + '> '.repeat(quoteLevel,) + '\n' + '> '.repeat(quoteLevel,) + '$$';
+  const insert = '$$\n' + '> '.repeat(quoteLevel,) + '\n' + '> '.repeat(quoteLevel,) + '$$';
 
   editor.replaceRange(insert, cursorPos,);
   cursorPos.line += 1;

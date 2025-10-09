@@ -94,7 +94,7 @@ export namespace Literals {
     setting: ToStringSettings = DEFAULT_TO_STRING,
     recursive: boolean = false,
   ): string {
-    let wrapped = wrapValue(field,);
+    const wrapped = wrapValue(field,);
     if (!wrapped) return setting.nullRepresentation;
 
     switch (wrapped.type) {
@@ -148,14 +148,14 @@ export namespace Literals {
   /** Recursively map complex objects at the leaves. */
   export function mapLeaves(val: Literal, func: (t: Literal,) => Literal,): Literal {
     if (isObject(val,)) {
-      let result: DataObject = {};
-      for (let [key, value,] of Object.entries(val,)) {
+      const result: DataObject = {};
+      for (const [key, value,] of Object.entries(val,)) {
         result[key] = mapLeaves(value as Literal, func,);
       }
       return result;
     } else if (isArray(val,)) {
-      let result: Literal[] = [];
-      for (let value of val) result.push(mapLeaves(value, func,),);
+      const result: Literal[] = [];
+      for (const value of val) result.push(mapLeaves(value, func,),);
       return result;
     } else {
       return func(val,);
@@ -176,8 +176,8 @@ export namespace Literals {
     else if (val2 === null) return 1;
 
     // A non-null value now which we can wrap & compare on.
-    let wrap1 = wrapValue(val1,);
-    let wrap2 = wrapValue(val2,);
+    const wrap1 = wrapValue(val1,);
+    const wrap2 = wrapValue(val2,);
 
     if (wrap1 === undefined && wrap2 === undefined) return 0;
     else if (wrap1 === undefined) return -1;
@@ -200,16 +200,16 @@ export namespace Literals {
         if (wrap1.value == wrap2.value) return 0;
         else return wrap1.value ? 1 : -1;
       case 'link':
-        let link1 = wrap1.value;
-        let link2 = wrap2.value as Link;
-        let normalize = linkNormalizer ?? ((x: string,) => x);
+        const link1 = wrap1.value;
+        const link2 = wrap2.value as Link;
+        const normalize = linkNormalizer ?? ((x: string,) => x);
 
         // We can't compare by file name or display, since that would break link equality. Compare by path.
-        let pathCompare = normalize(link1.path,).localeCompare(normalize(link2.path,),);
+        const pathCompare = normalize(link1.path,).localeCompare(normalize(link2.path,),);
         if (pathCompare != 0) return pathCompare;
 
         // Then compare by type.
-        let typeCompare = link1.type.localeCompare(link2.type,);
+        const typeCompare = link1.type.localeCompare(link2.type,);
         if (typeCompare != 0) return typeCompare;
 
         // Then compare by subpath existence.
@@ -232,26 +232,26 @@ export namespace Literals {
       //         ? 0
       //         : 1;
       case 'array':
-        let f1 = wrap1.value;
-        let f2 = wrap2.value as any[];
+        const f1 = wrap1.value;
+        const f2 = wrap2.value as any[];
         for (let index = 0; index < Math.min(f1.length, f2.length,); index++) {
-          let comp = compare(f1[index], f2[index],);
+          const comp = compare(f1[index], f2[index],);
           if (comp != 0) return comp;
         }
         return f1.length - f2.length;
       case 'object':
-        let o1 = wrap1.value;
-        let o2 = wrap2.value as Record<string, any>;
-        let k1 = Array.from(Object.keys(o1,),);
-        let k2 = Array.from(Object.keys(o2,),);
+        const o1 = wrap1.value;
+        const o2 = wrap2.value as Record<string, any>;
+        const k1 = Array.from(Object.keys(o1,),);
+        const k2 = Array.from(Object.keys(o2,),);
         k1.sort();
         k2.sort();
 
-        let keyCompare = compare(k1, k2,);
+        const keyCompare = compare(k1, k2,);
         if (keyCompare != 0) return keyCompare;
 
-        for (let key of k1) {
-          let comp = compare(o1[key], o2[key],);
+        for (const key of k1) {
+          const comp = compare(o1[key], o2[key],);
           if (comp != 0) return comp;
         }
 
@@ -268,7 +268,7 @@ export namespace Literals {
 
   /** Determine if the given value is "truthy" (i.e., is non-null and has data in it). */
   export function isTruthy(field: Literal,): boolean {
-    let wrapped = wrapValue(field,);
+    const wrapped = wrapValue(field,);
     if (!wrapped) return false;
 
     switch (wrapped.type) {
@@ -302,8 +302,8 @@ export namespace Literals {
     if (Literals.isArray(field,)) {
       return ([] as Literal[]).concat(field.map((v,) => deepCopy(v,)),) as T;
     } else if (Literals.isObject(field,)) {
-      let result: Record<string, Literal> = {};
-      for (let [key, value,] of Object.entries(field,)) result[key] = deepCopy(value as Literal,);
+      const result: Record<string, Literal> = {};
+      for (const [key, value,] of Object.entries(field,)) result[key] = deepCopy(value as Literal,);
       return result as T;
     } else {
       return field;
@@ -382,7 +382,7 @@ export namespace Groupings {
 
   /** Determines if the given array is a grouping array. */
   export function isGrouping<T,>(entry: Grouping<T>,): entry is GroupElement<T>[] {
-    for (let element of entry) if (!isElementGroup(element,)) return false;
+    for (const element of entry) if (!isElementGroup(element,)) return false;
 
     return true;
   }
@@ -391,7 +391,7 @@ export namespace Groupings {
   export function count<T,>(elements: Grouping<T>,): number {
     if (isGrouping(elements,)) {
       let result = 0;
-      for (let subgroup of elements) result += count(subgroup.rows,);
+      for (const subgroup of elements) result += count(subgroup.rows,);
       return result;
     } else {
       return elements.length;

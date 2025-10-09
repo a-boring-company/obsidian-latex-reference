@@ -8,7 +8,7 @@ export class InvertedIndex<V,> {
 
   /** Set the key to the given values. */
   public set(key: string, values: Iterable<V>,) {
-    for (let value of values) {
+    for (const value of values) {
       if (!this.inverted.has(value,)) this.inverted.set(value, new Set(),);
       this.inverted.get(value,)!.add(key,);
     }
@@ -21,7 +21,7 @@ export class InvertedIndex<V,> {
 
   /** Delete a key from the set of associated values. */
   public delete(key: string, values: Iterable<V>,) {
-    for (let value of values) {
+    for (const value of values) {
       const set = this.inverted.get(value,);
       if (set) {
         set.delete(key,);

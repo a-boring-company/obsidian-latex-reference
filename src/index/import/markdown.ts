@@ -177,7 +177,7 @@ export function markdownImport(
   ///////////
 
   const links: Link[] = [];
-  for (let linkdef of metadata.links ?? []) {
+  for (const linkdef of metadata.links ?? []) {
     const link = Link.infer(linkdef.link,);
     const line = linkdef.position.start.line;
     addLink(links, link,);

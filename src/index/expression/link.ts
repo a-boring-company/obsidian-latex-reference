@@ -27,10 +27,10 @@ export class Link {
   /** Infer the type of the link from the full internal link path. */
   public static infer(linkpath: string, embed: boolean = false, display?: string,): Link {
     if (linkpath.includes('#^',)) {
-      let split = linkpath.split('#^',);
+      const split = linkpath.split('#^',);
       return Link.block(split[0], split[1], embed, display,);
     } else if (linkpath.includes('#',)) {
-      let split = linkpath.split('#',);
+      const split = linkpath.split('#',);
       return Link.header(split[0], split[1], embed, display,);
     } else return Link.file(linkpath, embed, display,);
   }
@@ -65,7 +65,7 @@ export class Link {
 
   /** Create a link by parsing it's interior part (inside of the '[[]]'). */
   public static parseInner(rawlink: string,): Link {
-    let [link, display,] = splitOnUnescapedPipe(rawlink,);
+    const [link, display,] = splitOnUnescapedPipe(rawlink,);
     return Link.infer(link, false, display,);
   }
 

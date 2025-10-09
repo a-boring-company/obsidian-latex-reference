@@ -103,7 +103,7 @@ export class ManageProfileModal extends Modal {
   }
 
   onOpen() {
-    let { contentEl, } = this;
+    const { contentEl, } = this;
 
     contentEl.empty();
     // contentEl.createEl("h4", { text: "Manage profiles" });
@@ -152,7 +152,7 @@ export class ManageProfileModal extends Modal {
   }
 
   async onClose() {
-    let { contentEl, } = this;
+    const { contentEl, } = this;
     contentEl.empty();
 
     await this.plugin.saveSettings();
@@ -266,7 +266,7 @@ class EditProfileModal extends Modal {
       }
     }
 
-    let { contentEl, } = this;
+    const { contentEl, } = this;
     contentEl.empty();
     this.parent.open();
   }
@@ -278,7 +278,7 @@ class ConfirmProfileDeletionModal extends Modal {
   }
 
   onOpen() {
-    let { contentEl, } = this;
+    const { contentEl, } = this;
     contentEl.empty();
 
     // contentEl.createEl("h3", { text: "Delete profile" });
@@ -306,7 +306,7 @@ class ConfirmProfileDeletionModal extends Modal {
   }
 
   onClose() {
-    let { contentEl, } = this;
+    const { contentEl, } = this;
     contentEl.empty();
     this.parent.open();
   }
@@ -318,7 +318,7 @@ class AddProfileModal extends Modal {
   }
 
   onOpen() {
-    let { contentEl, } = this;
+    const { contentEl, } = this;
     contentEl.empty();
 
     let id: string;
@@ -359,7 +359,7 @@ class AddProfileModal extends Modal {
   }
 
   onClose() {
-    let { contentEl, } = this;
+    const { contentEl, } = this;
     contentEl.empty();
     this.parent.open();
   }
@@ -375,7 +375,7 @@ class UpdateProfileModal extends Modal {
   }
 
   onOpen() {
-    let { contentEl, } = this;
+    const { contentEl, } = this;
     contentEl.empty();
 
     // contentEl.createEl("h3", { text: "Update profiles" });
@@ -423,7 +423,7 @@ class UpdateProfileModal extends Modal {
   }
 
   onClose() {
-    let { contentEl, } = this;
+    const { contentEl, } = this;
     contentEl.empty();
     delete this.parent.parent.plugin.extraSettings.profiles[this.parent.id];
     this.parent.close();
@@ -442,7 +442,7 @@ function getAffectedFiles(plugin: LatexReferencer, oldProfileId: string,) {
 }
 
 function makeIdOfCopy(oldID: string, profiles: Record<string, Profile>,) {
-  let newId = `Copy of ${oldID}`;
+  const newId = `Copy of ${oldID}`;
   if (!(newId in profiles)) {
     return newId;
   }

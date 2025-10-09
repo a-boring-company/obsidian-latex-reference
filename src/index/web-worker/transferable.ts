@@ -7,16 +7,16 @@ export namespace Transferable {
   export function transferable(value: any,): any {
     // Handle simple universal types first.
     if (value instanceof Map) {
-      let copied = new Map();
-      for (let [key, val,] of value.entries()) copied.set(transferable(key,), transferable(val,),);
+      const copied = new Map();
+      for (const [key, val,] of value.entries()) copied.set(transferable(key,), transferable(val,),);
       return copied;
     } else if (value instanceof Set) {
-      let copied = new Set();
-      for (let val of value) copied.add(transferable(val,),);
+      const copied = new Set();
+      for (const val of value) copied.add(transferable(val,),);
       return copied;
     }
 
-    let wrapped = Literals.wrapValue(value,);
+    const wrapped = Literals.wrapValue(value,);
     if (wrapped === undefined) throw Error('Unrecognized transferable value: ' + value,);
 
     switch (wrapped.type) {
@@ -46,10 +46,10 @@ export namespace Transferable {
           value: transferable(wrapped.value.toObject(),),
         };
       case 'object':
-        let result: Record<string, any> = {};
+        const result: Record<string, any> = {};
 
         // Only copy owned properties, and not derived/readonly properties like getters/computed fields.
-        for (let key of Object.getOwnPropertyNames(wrapped.value,)) {
+        for (const key of Object.getOwnPropertyNames(wrapped.value,)) {
           result[key] = transferable(wrapped.value[key],);
         }
         return result;
@@ -63,12 +63,12 @@ export namespace Transferable {
     } else if (transferable === undefined) {
       return undefined;
     } else if (transferable instanceof Map) {
-      let real = new Map();
-      for (let [key, val,] of transferable.entries()) real.set(value(key,), value(val,),);
+      const real = new Map();
+      for (const [key, val,] of transferable.entries()) real.set(value(key,), value(val,),);
       return real;
     } else if (transferable instanceof Set) {
-      let real = new Set();
-      for (let val of transferable) real.add(value(val,),);
+      const real = new Set();
+      for (const val of transferable) real.add(value(val,),);
       return real;
     } else if (Array.isArray(transferable,)) {
       return transferable.map((v,) => value(v,));
@@ -89,8 +89,8 @@ export namespace Transferable {
         }
       }
 
-      let result: Record<string, any> = {};
-      for (let [key, val,] of Object.entries(transferable,)) result[key] = value(val,);
+      const result: Record<string, any> = {};
+      for (const [key, val,] of Object.entries(transferable,)) result[key] = value(val,);
       return result;
     }
 

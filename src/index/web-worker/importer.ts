@@ -58,10 +58,10 @@ export class MathImporter extends Component {
    */
   public import<T,>(file: TFile,): Promise<T> {
     // De-bounce repeated requests for the same file.
-    let existing = this.outstanding.get(file.path,);
+    const existing = this.outstanding.get(file.path,);
     if (existing) return existing;
 
-    let promise: Promise<T> = new Promise((resolve, reject,) => {
+    const promise: Promise<T> = new Promise((resolve, reject,) => {
       this.queue.push([file, resolve, reject,],);
     },);
 
@@ -72,7 +72,7 @@ export class MathImporter extends Component {
 
   /** Reset any active throttles on the importer (such as if the utilization changes). */
   public unthrottle() {
-    for (let worker of this.workers.values()) {
+    for (const worker of this.workers.values()) {
       worker.availableAt = Date.now();
     }
   }
@@ -102,7 +102,7 @@ export class MathImporter extends Component {
 
   /** Finish the parsing of a file, potentially queueing a new file. */
   private finish(worker: PoolWorker, data: any,) {
-    let [file, resolve, reject,] = worker.active!;
+    const [file, resolve, reject,] = worker.active!;
 
     // Resolve promises to let users know this file has finished.
     if ('$error' in data) reject(data['$error'],);
@@ -141,7 +141,7 @@ export class MathImporter extends Component {
   /** Obtain an available worker, returning undefined if one does not exist. */
   private availableWorker(): PoolWorker | undefined {
     const now = Date.now();
-    for (let worker of this.workers.values()) {
+    for (const worker of this.workers.values()) {
       if (!worker.active && worker.availableAt <= now) {
         return worker;
       }
@@ -149,7 +149,7 @@ export class MathImporter extends Component {
 
     // Make a new worker if we can.
     if (this.workers.size < this.throttle().workers) {
-      let worker = this.newWorker();
+      const worker = this.newWorker();
       this.workers.set(worker.id, worker,);
       return worker;
     }
@@ -159,7 +159,7 @@ export class MathImporter extends Component {
 
   /** Create a new worker bound to this importer. */
   private newWorker(): PoolWorker {
-    let worker: PoolWorker = {
+    const worker: PoolWorker = {
       id: this.nextWorkerId++,
       availableAt: Date.now(),
       worker: new ImportWorker(),
@@ -171,11 +171,11 @@ export class MathImporter extends Component {
 
   /** Reject all outstanding promises and close all workers on close. */
   public onunload(): void {
-    for (let worker of this.workers.values()) {
+    for (const worker of this.workers.values()) {
       terminate(worker,);
     }
 
-    for (let [_file, _success, reject,] of this.queue) {
+    for (const [_file, _success, reject,] of this.queue) {
       reject('Terminated',);
     }
 

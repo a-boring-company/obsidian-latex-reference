@@ -280,7 +280,7 @@ export class MigrationModal extends Modal {
   }
 
   async onOpen() {
-    let { contentEl, modalEl, titleEl, } = this;
+    const { contentEl, modalEl, titleEl, } = this;
     contentEl.empty();
 
     modalEl.querySelector('.modal-close-button',)?.remove();
