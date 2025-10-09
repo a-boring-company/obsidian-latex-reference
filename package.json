@@ -1,9 +1,9 @@
 {
 	"name": "obsidian-math-booster",
-	"version": "2.2.0",
+	"version": "2a.3.1",
 	"description": "An Obsidian.md plugin that provides a powerful indexing & referencing system for theorems & equations in your vault. Bring LaTeX-like workflow into Obsidian with theorem environments, automatic equation numbering, and more.",
 	"engines": {
-		"node": ">=22.0.0"
+		"node": ">=24.0.0"
 	},
 	"scripts": {
 		"dev": "node esbuild.config.mjs",
@@ -16,7 +16,7 @@
 	"author": "Ryota Ushio",
 	"license": "MIT",
 	"devDependencies": {
-		"@types/node": "^22.10.2",
+		"@types/node": "^24.7.0",
 		"@typescript-eslint/eslint-plugin": "^8.18.2",
 		"@typescript-eslint/parser": "^8.18.2",
 		"builtin-modules": "^4.0.0",
@@ -26,14 +26,14 @@
 		"obsidian-mathlinks": "^0.5.1",
 		"obsidian-quick-preview": "latest",
 		"tslib": "^2.8.1",
-		"typescript": "^5.7.2"
+		"typescript": "^5.9.3"
 	},
 	"dependencies": {
 		"@codemirror/language": "^6.0.0",
 		"@lezer/common": "^1.0.3",
 		"esbuild-plugin-inline-worker": "^0.1.1",
-		"flatqueue": "^2.0.3",
-		"monkey-around": "^2.3.0",
+		"flatqueue": "^3.0.0",
+		"monkey-around": "^3.0.0",
 		"sorted-btree": "^1.8.1"
 	}
 }
