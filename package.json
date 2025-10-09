@@ -25,6 +25,7 @@
 		"obsidian": "latest",
 		"obsidian-mathlinks": "^0.5.1",
 		"obsidian-quick-preview": "latest",
+		"sass": "^1.93.2",
 		"tslib": "^2.8.1",
 		"typescript": "^5.9.3"
 	},
