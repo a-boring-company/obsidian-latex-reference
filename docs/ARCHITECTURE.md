@@ -1,6 +1,6 @@
 # Plugin Architecture
 
-**Version**: 2a.3.1  
+**Version**: 2a.4.0  
 **Target**: Obsidian v1.3.5+
 
 ## Dual Rendering Architecture

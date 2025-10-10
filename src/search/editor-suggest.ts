@@ -4,8 +4,6 @@ import {
   EditorSuggest,
   EditorSuggestContext,
   EditorSuggestTriggerInfo,
-  Keymap,
-  UserEvent,
 } from 'obsidian';
 
 import { MathBlock, } from 'index/typings/markdown';
@@ -74,8 +72,9 @@ export class LinkAutocomplete extends EditorSuggest<MathBlock> implements Sugges
     this.core.renderSuggestion(block, el,);
   }
 
-  selectSuggestion(item: MathBlock, evt: MouseEvent | KeyboardEvent,): void {
-    this.core.selectSuggestion(item, evt,);
+  selectSuggestion(item: MathBlock, _evt: MouseEvent | KeyboardEvent,): void {
+    void _evt;
+    this.core.selectSuggestion(item,);
   }
 
   setTriggers() {

@@ -36,7 +36,7 @@ npm run build
 mkdir -p ~/ObsidianTestVault/.obsidian/plugins/
 
 # Symlink this project folder into the test vault
-ln -s "$(pwd)" ~/ObsidianTestVault/.obsidian/plugins/obsidian-math-booster
+ln -s "$(pwd)" ~/ObsidianTestVault/.obsidian/plugins/obsidian-latex-reference
 
 # Rebuild on changes (watch mode)
 npm run dev
@@ -46,8 +46,8 @@ npm run dev
 
 ```bash
 # Copy plugin to vault's plugin folder
-mkdir -p ~/ObsidianTestVault/.obsidian/plugins/obsidian-math-booster/
-cp main.js styles.css manifest.json ~/ObsidianTestVault/.obsidian/plugins/obsidian-math-booster/
+mkdir -p ~/ObsidianTestVault/.obsidian/plugins/obsidian-latex-reference/
+cp main.js styles.css manifest.json ~/ObsidianTestVault/.obsidian/plugins/obsidian-latex-reference/
 ```
 
 ### 3. Enable Plugin in Obsidian
@@ -57,9 +57,9 @@ cp main.js styles.css manifest.json ~/ObsidianTestVault/.obsidian/plugins/obsidi
 3. **Enable Community Plugins**:
    - `Settings → Community plugins → Turn off Restricted Mode` (if prompted)
 4. **Enable this plugin**:
-   - `Settings → Community plugins → Installed plugins → Math Booster → Enable`
+   - `Settings → Community plugins → Installed plugins → LaTeX Reference → Enable`
 5. **Configure settings** (optional):
-   - `Settings → Math Booster` (configure theorem styles, prefixes, etc.)
+   - `Settings → LaTeX Reference` (configure theorem styles, prefixes, etc.)
 
 ---
 
@@ -172,7 +172,7 @@ $$E = mc^2$$
 
 2. **Test Search Modal**:
    - Open command palette: `Ctrl/Cmd + P`
-   - Search for: `Math Booster: Search theorems and equations`
+   - Search for: `LaTeX Reference: Search theorems and equations`
    - Type "theorem" in search box
 
    **Expected**: List of all theorems appears with previews
@@ -233,7 +233,7 @@ Using equation [[Test-Equations#^equation-1]], we derive...
 
 **Steps:**
 
-1. **Open Settings**: `Settings → Math Booster`
+1. **Open Settings**: `Settings → LaTeX Reference`
 
 2. **Test Global Settings**:
    - Change theorem prefix: `Thm` → `THM`
@@ -315,7 +315,7 @@ Using equation [[Test-Equations#^equation-1]], we derive...
 
 1. Open Developer Tools: `Ctrl/Cmd + Shift + I`
 2. Go to **Console** tab
-3. Look for red error messages from "Math Booster"
+3. Look for red error messages from "LaTeX Reference"
 
 **Common Causes:**
 
@@ -339,20 +339,20 @@ Using equation [[Test-Equations#^equation-1]], we derive...
 
 **Check Settings:**
 
-- `Settings → Math Booster → Enable automatic numbering`
+- `Settings → LaTeX Reference → Enable automatic numbering`
 - Verify theorem callout syntax: `> [!theorem]` (case-sensitive)
 
 **Rebuild Index:**
 
-- Command palette: `Math Booster: Rebuild index`
+- Command palette: `LaTeX Reference: Rebuild index`
 - Reload Obsidian: `Ctrl/Cmd + R`
 
 ### Autocomplete Not Working
 
 **Enable in Settings:**
 
-- `Settings → Math Booster → Enable link autocomplete`
-- `Settings → Math Booster → Enable editor autocomplete`
+- `Settings → LaTeX Reference → Enable link autocomplete`
+- `Settings → LaTeX Reference → Enable editor autocomplete`
 
 **Check Trigger:**
 
@@ -389,7 +389,7 @@ Currently, Obsidian plugins require manual testing due to UI/app integration. Po
 **Test Large Vault:**
 
 1. Vault with 1000+ notes
-2. Command palette: `Math Booster: Rebuild index`
+2. Command palette: `LaTeX Reference: Rebuild index`
 3. Monitor Developer Console for timing
 
 **Expected**: < 5 seconds for 1000 notes

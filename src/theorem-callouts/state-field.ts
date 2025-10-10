@@ -47,7 +47,7 @@ export const createTheoremCalloutsField = (plugin: LatexReferencer,) =>
 
       let minChangedPosition = tr.newDoc.length - 1;
       const changeDesc = tr.changes.desc;
-      changeDesc.iterChangedRanges((fromA, toA, fromB, toB,) => {
+      changeDesc.iterChangedRanges((fromA, _toA, fromB,) => {
         if (fromB < minChangedPosition) {
           minChangedPosition = fromB;
         }

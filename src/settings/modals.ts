@@ -245,7 +245,7 @@ export class LocalContextSettingsSuggestModal extends FileSuggestModal {
     super(app, plugin,);
   }
 
-  onChooseItem(file: TAbstractFile, evt: MouseEvent | KeyboardEvent,) {
+  onChooseItem(file: TAbstractFile,) {
     const modal = new ContextSettingModal(this.app, this.plugin, file,);
     modal.open();
   }
@@ -256,7 +256,7 @@ export class FileExcludeSuggestModal extends FileSuggestModal {
     super(app, plugin,);
   }
 
-  onChooseItem(file: TAbstractFile, evt: MouseEvent | KeyboardEvent,) {
+  onChooseItem(file: TAbstractFile,) {
     this.plugin.excludedFiles.push(file.path,);
     this.manageModal.newDisplay();
   }
@@ -292,7 +292,7 @@ export class ExcludedFileManageModal extends Modal {
       )
       .addButton((btn,) => {
         btn.setIcon('plus',)
-          .onClick((event,) => {
+          .onClick(() => {
             new FileExcludeSuggestModal(this.app, this.plugin, this,).open();
           },);
       },);

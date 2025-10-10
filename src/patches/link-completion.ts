@@ -1,5 +1,5 @@
 import { around, } from 'monkey-around';
-import { EditorSuggest, Notice, renderMath, TFile, } from 'obsidian';
+import { EditorSuggest, Notice, TFile, } from 'obsidian';
 
 import { MarkdownPage, TheoremCalloutBlock, } from 'index/typings/markdown';
 import LatexReferencer from 'main';
@@ -13,7 +13,7 @@ export const patchLinkCompletion = (plugin: LatexReferencer,) => {
   const suggest = (plugin.app.workspace as any).editorSuggest.suggests[0]; // built-in link completion
   if (!Object.hasOwn(suggest, 'suggestManager',)) {
     new Notice(
-      `Failed to patch Obsidian\'s built-in link completion. Please reload ${plugin.manifest.name}.`,
+      `Failed to patch Obsidian's built-in link completion. Please reload ${plugin.manifest.name}.`,
     );
   }
   const prototype = suggest.constructor.prototype as EditorSuggest<any>;

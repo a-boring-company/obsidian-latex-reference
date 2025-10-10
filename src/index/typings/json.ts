@@ -3,7 +3,7 @@
 
 import { Link, } from 'index/expression/literal';
 import { Pos, } from 'obsidian';
-import { MinimalTheoremCalloutSettings, TheoremCalloutSettings, } from 'settings/settings';
+import { MinimalTheoremCalloutSettings, } from 'settings/settings';
 
 /** A span of contiguous lines. */
 export interface LineSpan {

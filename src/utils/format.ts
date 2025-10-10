@@ -49,7 +49,7 @@ export function toRomanUpper(num: number,): string {
   let roman = '';
   let i = 3;
   while (i--) {
-    // @ts-ignore
+    // @ts-expect-error - index access on ROMAN matrix is safe under numeric bounds here
     roman = (ROMAN[+digits.pop() + (i * 10)] ?? '') + roman;
   }
   return Array(+digits.join('',) + 1,).join('M',) + roman;

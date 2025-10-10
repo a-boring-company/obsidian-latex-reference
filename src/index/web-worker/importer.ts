@@ -175,7 +175,7 @@ export class MathImporter extends Component {
       terminate(worker,);
     }
 
-    for (const [_file, _success, reject,] of this.queue) {
+    for (const [, , reject,] of this.queue) {
       reject('Terminated',);
     }
 

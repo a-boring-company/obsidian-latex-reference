@@ -42,7 +42,8 @@ abstract class ProofWidget extends WidgetType {
 
   abstract initDOM(): HTMLElement;
 
-  ignoreEvent(event: Event,): boolean {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  ignoreEvent(_event: Event,): boolean {
     // the DOM element won't respond to clicks without this
     return false;
   }

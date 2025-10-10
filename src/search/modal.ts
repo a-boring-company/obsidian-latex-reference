@@ -54,7 +54,7 @@ export class MathSearchModal extends SuggestModal<MathBlock> implements SuggestP
         dropdown.onChange((value: QueryType,) => {
           this.queryType = value;
           this.resetCore();
-          // @ts-ignore
+          // @ts-expect-error - SuggestModal.onInput is protected
           this.onInput();
 
           // remember the last state
@@ -76,7 +76,7 @@ export class MathSearchModal extends SuggestModal<MathBlock> implements SuggestP
         dropdown.onChange((value: SearchRange,) => {
           this.range = value;
           this.resetCore();
-          // @ts-ignore
+          // @ts-expect-error - SuggestModal.onInput is protected
           this.onInput();
 
           // remember the last state
@@ -100,7 +100,7 @@ export class MathSearchModal extends SuggestModal<MathBlock> implements SuggestP
           .onChange((dvQuery,) => {
             if (this.core instanceof DataviewQuerySearchCore) {
               this.core.dvQuery = dvQuery;
-              // @ts-ignore
+              // @ts-expect-error - SuggestModal.onInput is protected
               this.onInput();
 
               // remember the last state
@@ -155,6 +155,7 @@ export class MathSearchModal extends SuggestModal<MathBlock> implements SuggestP
   }
 
   onChooseSuggestion(item: MathBlock, evt: MouseEvent | KeyboardEvent,) {
-    this.core.selectSuggestion(item, evt,);
+    void evt;
+    this.core.selectSuggestion(item,);
   }
 }

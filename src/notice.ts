@@ -53,7 +53,7 @@ export class PluginSplitNoticeModal extends Modal {
             .then((button,) => enabled || button.setCta())
             .onClick(() => {
               self.open(`obsidian://show-plugin?id=${id}`,);
-              this.component.registerDomEvent(window, 'click', (evt,) => {
+              this.component.registerDomEvent(window, 'click', () => {
                 this.onOpen();
               },);
             },);
@@ -323,7 +323,7 @@ to the new format:
         },);
     },);
 
-    // @ts-ignore
+    // @ts-expect-error - checking runtime-initialized flags outside types
     if (!this.app.metadataCache.initialized || !this.plugin.indexManager.initialized) {
       new Notice(
         'Obsidian is still indexing the vault. Try again after the cache is fully initialized.',

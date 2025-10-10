@@ -29,7 +29,7 @@ export type Literal =
   | Link
   | Array<Literal>
   | DataObject
-  | Function
+  | ((...args: unknown[]) => unknown)
   | null;
 
 /** Maps the string type to it's external, API-facing representation. */
@@ -44,7 +44,7 @@ export type LiteralRepr<T extends LiteralType,> = T extends 'boolean' ? boolean
   : T extends 'link' ? Link
   : T extends 'array' ? Array<Literal>
   : T extends 'object' ? DataObject
-  : T extends 'function' ? Function
+  : T extends 'function' ? ((...args: unknown[]) => unknown)
   : any;
 
 /** A wrapped literal value which can be switched on. */
@@ -364,7 +364,7 @@ export namespace Literals {
   }
 
   /** Determines if the given value is a javascript function. */
-  export function isFunction(val: any,): val is Function {
+  export function isFunction(val: any,): val is (...args: unknown[]) => unknown {
     return typeof val == 'function';
   }
 }

@@ -8,7 +8,9 @@ export namespace Transferable {
     // Handle simple universal types first.
     if (value instanceof Map) {
       const copied = new Map();
-      for (const [key, val,] of value.entries()) copied.set(transferable(key,), transferable(val,),);
+      for (const [key, val,] of value.entries()) {
+        copied.set(transferable(key,), transferable(val,),);
+      }
       return copied;
     } else if (value instanceof Set) {
       const copied = new Set();

@@ -1,6 +1,5 @@
 import {
   App,
-  editorInfoField,
   ExtraButtonComponent,
   MarkdownPostProcessorContext,
   MarkdownRenderChild,
@@ -522,7 +521,7 @@ function readSettingsFromEl(calloutEl: HTMLElement,): TheoremCalloutSettings | n
   if (type === 'math') {
     // legacy format
     const settings = JSON.parse(metadata,) as TheoremCalloutSettings;
-    // @ts-ignore
+    // @ts-expect-error - pruning legacy metadata field not present on the modern type
     delete settings['_index']; // do not use the legacy "_index" value
     return settings;
   }

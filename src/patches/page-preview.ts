@@ -10,9 +10,9 @@ export const patchPagePreview = (plugin: LatexReferencer,) => {
   const { app, } = plugin;
 
   plugin.register(
-    // @ts-ignore
+    // @ts-expect-error - internal plugin type is not exported/stable
     around(app.internalPlugins.plugins['page-preview'].instance.constructor.prototype, {
-      onLinkHover(old: Function,) {
+      onLinkHover(old: (...args: unknown[]) => unknown,) {
         return function(
           parent: HoverParent,
           targetEl: HTMLElement,

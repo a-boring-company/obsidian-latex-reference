@@ -1,5 +1,5 @@
 import { JsonMarkdownPage, } from 'index/typings/json';
-import { CachedMetadata, FileStats, } from 'obsidian';
+import { CachedMetadata, } from 'obsidian';
 
 /** A command to import a markdown file. */
 export interface MarkdownImport {

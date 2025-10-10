@@ -119,7 +119,7 @@ export class TheoremCalloutSettingsHelper {
               if (this.plugin.extraSettings.setLabelInModal) {
                 let labelInit = this.settings.title.replaceAll(' ', '-',).replaceAll('\'s', '',)
                   .toLowerCase();
-                labelInit = labelInit.replaceAll(/[^a-z0-1\-]/g, '',);
+                labelInit = labelInit.replaceAll(/[^a-z0-1-]/g, '',);
                 labelTextComp?.setValue(labelInit,);
                 this.settings.label = labelInit;
               }
@@ -498,11 +498,11 @@ export class ExtraSettingsHelper extends SettingsHelper<ExtraSettings> {
     this.addToggleSetting(
       'enableProof',
       'Enable proof environment',
-      `For example, you can replace a pair of inline codes \`${DEFAULT_SETTINGS.beginProof}\` & \`${DEFAULT_SETTINGS.endProof}\` with \"${
+      `For example, you can replace a pair of inline codes \`${DEFAULT_SETTINGS.beginProof}\` & \`${DEFAULT_SETTINGS.endProof}\` with "${
         DEFAULT_PROFILES[DEFAULT_SETTINGS.profile].body.proof.begin
-      }\" & \"${
+      }" & "${
         DEFAULT_PROFILES[DEFAULT_SETTINGS.profile].body.proof.end
-      }\". You can style it with CSS snippets. See the documentation for the details.`,
+      }". You can style it with CSS snippets. See the documentation for the details.`,
       () => this.plugin.updateEditorExtensions(),
     );
 

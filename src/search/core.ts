@@ -137,7 +137,8 @@ export abstract class MathSearchCore {
 
   abstract getUnsortedSuggestions(): Promise<Array<string>> | Promise<Set<string>>;
 
-  postProcessResults(results: ScoredMathBlock[],) {}
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  postProcessResults(_results: ScoredMathBlock[],) {}
 
   gradeSuggestions(ids: Array<string> | Set<string>, query: string,) {
     const callback = (this.plugin.extraSettings.searchMethod == 'Fuzzy'
@@ -202,7 +203,7 @@ export abstract class MathSearchCore {
     }
   }
 
-  selectSuggestion(item: MathBlock, evt: MouseEvent | KeyboardEvent,): void {
+  selectSuggestion(item: MathBlock,): void {
     this.selectSuggestionImpl(item, false,);
     // I don't know when to call finishRenderMath...
     finishRenderMath();

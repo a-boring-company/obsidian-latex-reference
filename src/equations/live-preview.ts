@@ -100,7 +100,7 @@ export function createEquationNumberPlugin(plugin: LatexReferencer,) {
           try {
             const line = view.state.doc.lineAt(pos,).number - 1; // sometimes throws an error for reasons that I don't understand
             block = page.getBlockByLineNumber(line,);
-          } catch (err) {
+          } catch {
             block = page.getBlockByOffset(pos,);
           }
           if (!(block instanceof EquationBlock)) continue;

@@ -103,8 +103,8 @@ export default class LatexReferencer extends Plugin {
     this.addChild(this.indexManager = new MathIndexManager(this, this.extraSettings,),);
     this.app.workspace.onLayoutReady(async () => this.indexManager.initialize());
     // @ts-expect-error - Attaching to global window for debugging
-    (window['mathIndex'] = this.indexManager.index)
-      && this.register(() => delete (window as any)['mathIndex']);
+    window['mathIndex'] = this.indexManager.index;
+    this.register(() => delete (window as any)['mathIndex']);
 
     // wait until the layout is ready to ensure MathLinks has been loaded when calling addProvider()
     this.app.workspace.onLayoutReady(() => {
@@ -114,7 +114,7 @@ export default class LatexReferencer extends Plugin {
     },);
 
     this.registerEvent(
-      this.indexManager.on('local-settings-updated', async (file,) => {
+      this.indexManager.on('local-settings-updated', async () => {
         // Add profile's tags as CSS classes
         this.app.workspace.iterateRootLeaves((leaf,) => {
           if (leaf.view instanceof MarkdownView) {
@@ -233,8 +233,10 @@ export default class LatexReferencer extends Plugin {
               }
             }
             if (typeof val == typeof DEFAULT_SETTINGS[key]) {
-              // @ts-ignore
-              this.settings[path][key] = val;
+              const target = this.settings[path] as
+                & Partial<MathContextSettings>
+                & Record<string, unknown>;
+              target[key as string] = val as unknown;
             }
           }
         }

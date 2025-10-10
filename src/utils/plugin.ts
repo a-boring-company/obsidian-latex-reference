@@ -26,21 +26,22 @@ import {
 import { splitIntoLines, } from './general';
 import { generateBlockID, getAncestors, getFile, } from './obsidian';
 
-export function resolveSettings(
-  settings: MinimalTheoremCalloutSettings,
-  plugin: LatexReferencer,
-  currentFile: TAbstractFile,
-): ResolvedMathSettings;
+/* eslint-disable no-redeclare */
 export function resolveSettings(
   settings: undefined,
   plugin: LatexReferencer,
   currentFile: TAbstractFile,
 ): Required<MathContextSettings>;
 export function resolveSettings(
+  settings: MinimalTheoremCalloutSettings,
+  plugin: LatexReferencer,
+  currentFile: TAbstractFile,
+): ResolvedMathSettings;
+export function resolveSettings(
   settings: MinimalTheoremCalloutSettings | undefined,
   plugin: LatexReferencer,
   currentFile: TAbstractFile,
-): Required<MathContextSettings> {
+): ResolvedMathSettings | Required<MathContextSettings> {
   /** Resolves settings. Does not overwride, but returns a new settings object.
    * Returned settings can be either
    * - ResolvedMathContextSettings or
@@ -52,8 +53,9 @@ export function resolveSettings(
     Object.assign(resolvedSettings, plugin.settings[ancestor.path],);
   }
   Object.assign(resolvedSettings, settings,);
-  return resolvedSettings;
+  return resolvedSettings as ResolvedMathSettings | Required<MathContextSettings>;
 }
+/* eslint-enable no-redeclare */
 
 export function getProfile(plugin: LatexReferencer, file: TFile,) {
   const settings = resolveSettings(undefined, plugin, file,);

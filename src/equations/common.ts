@@ -1,5 +1,5 @@
 import { EquationBlock, } from 'index/typings/markdown';
-import { finishRenderMath, renderMath, } from 'obsidian';
+import { renderMath, } from 'obsidian';
 import { MathContextSettings, } from 'settings/settings';
 import { parseLatexComment, } from 'utils/parse';
 

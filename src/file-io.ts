@@ -1,4 +1,4 @@
-import { CachedMetadata, Editor, MarkdownView, Pos, TFile, } from 'obsidian';
+import { Editor, MarkdownView, Pos, TFile, } from 'obsidian';
 
 import { isEditingView, locToEditorPosition, } from 'utils/editor';
 import { insertAt, splitIntoLines, } from 'utils/general';

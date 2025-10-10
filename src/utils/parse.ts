@@ -2,7 +2,6 @@ import {
   THEOREM_LIKE_ENV_IDs,
   THEOREM_LIKE_ENV_PREFIX_ID_MAP,
   THEOREM_LIKE_ENV_PREFIXES,
-  TheoremLikeEnvID,
   TheoremLikeEnvPrefix,
 } from 'env';
 import { FoldOption, MinimalTheoremCalloutSettings, } from 'settings/settings';

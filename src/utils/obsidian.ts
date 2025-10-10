@@ -4,7 +4,6 @@ import {
   CachedMetadata,
   Component,
   HeadingSubpathResult,
-  MarkdownPostProcessorContext,
   MarkdownView,
   Modifier,
   parseLinktext,
@@ -192,7 +191,7 @@ export async function openFileAndSelectPosition(
   position: Pos,
   ...leafArgs: LeafArgs
 ) {
-  // @ts-ignore
+  // @ts-expect-error - workspace.getLeaf has variadic options not captured by types
   const leaf = app.workspace.getLeaf(...leafArgs,);
   await leaf.openFile(file,);
   if (leaf.view instanceof MarkdownView) {
