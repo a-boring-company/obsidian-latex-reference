@@ -3,15 +3,15 @@ export default {
   preset: 'ts-jest',
   testEnvironment: 'node',
   testMatch: [
-    '**/__tests__/**/*.test.ts'
+    '**/__tests__/**/*.test.ts',
   ],
   transform: {
-    '^.+\\.ts$': 'ts-jest'
+    '^.+\\.ts$': 'ts-jest',
   },
   collectCoverageFrom: [
     'src/**/*.ts',
     '!src/**/*.d.ts',
     '!src/legacy/**/*',
-    '!src/__tests__/**/*'
-  ]
+    '!src/__tests__/**/*',
+  ],
 };

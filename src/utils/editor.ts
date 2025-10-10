@@ -45,6 +45,7 @@ export function nodeTextQuoteSymbolTrimmed(
   if (quoteSymbolMatch) {
     return quoteSymbolMatch.slice(-1,)[0];
   }
+  return undefined;
 }
 
 export function printChangeSet(changes: ChangeSet,) {

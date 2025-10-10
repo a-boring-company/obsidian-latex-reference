@@ -36,15 +36,15 @@ import { renderTextWithMath, } from 'utils/render';
 
 export const createTheoremCalloutPostProcessor =
   (plugin: LatexReferencer,) =>
-  async (element: HTMLElement, context: MarkdownPostProcessorContext,) => {
+  async (element: HTMLElement, context: MarkdownPostProcessorContext,): Promise<void> => {
     const file = plugin.app.vault.getAbstractFileByPath(context.sourcePath,)
       ?? plugin.app.workspace.getActiveFile();
-    if (!(file instanceof TFile)) return null;
+    if (!(file instanceof TFile)) return;
 
     const pdf = isPdfExport(element,);
     let index = 0; // for numbering theorems in PDf export
 
-    for (const calloutEl of Array.from(element.querySelectorAll<HTMLElement>(`.callout`,))) {
+    for (const calloutEl of Array.from(element.querySelectorAll<HTMLElement>(`.callout`,),)) {
       const type = calloutEl.getAttribute('data-callout',)!.toLowerCase();
 
       if (isTheoremCallout(plugin, type,)) {
@@ -157,7 +157,7 @@ class TheoremCalloutRenderer extends MarkdownRenderChild {
     this.update();
   }
 
-  update() {
+  update(): void {
     const existingMainTitleEl = this.containerEl.querySelector<HTMLElement>(
       '.theorem-callout-main-title',
     );
@@ -169,7 +169,7 @@ class TheoremCalloutRenderer extends MarkdownRenderChild {
       // but it is not a problem because we are only updating the main title part.
       const settings: (TheoremCalloutSettings & TheoremCalloutPrivateFields) | null =
         readSettingsFromEl(this.containerEl,);
-      if (!settings) return null;
+      if (!settings) return;
 
       const livePreviewIndex = this.containerEl.getAttribute('data-theorem-index',);
       if (livePreviewIndex !== null) settings._index = +livePreviewIndex;

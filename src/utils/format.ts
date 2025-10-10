@@ -142,6 +142,7 @@ export function inferNumberPrefix(source: string, regExp: string,): string | und
     if (!prefix.endsWith('.',)) prefix += '.';
     return prefix;
   }
+  return undefined;
 }
 
 // /**
@@ -232,4 +233,5 @@ export function formatLabel(settings: ResolvedMathSettings,): string | undefined
     return settings.labelPrefix + THEOREM_LIKE_ENVs[settings.type as TheoremLikeEnvID].prefix + ':'
       + settings.label;
   }
+  return undefined;
 }

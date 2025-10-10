@@ -46,7 +46,7 @@ export async function renderMarkdown(
 ): Promise<NodeList | undefined> {
   const el = createSpan();
   await MarkdownRenderer.renderMarkdown(markdown, el, sourcePath, component,);
-  for (const child of Array.from(el.children)) {
+  for (const child of Array.from(el.children,)) {
     if (child.tagName == 'P') {
       return child.childNodes;
     }

@@ -10,7 +10,7 @@ export default [
     languageOptions: {
       parser: tsParser,
       parserOptions: {
-        ecmaVersion: 2024,
+        ecmaVersion: 'latest',
         sourceType: 'module',
         project: './tsconfig.json',
       },
@@ -48,7 +48,7 @@ export default [
         // Web Workers
         onmessage: 'writable',
         postMessage: 'readonly',
-        
+
         // Jest globals for test files
         describe: 'readonly',
         test: 'readonly',

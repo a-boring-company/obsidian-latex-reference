@@ -14,6 +14,7 @@ export const patchPagePreview = (plugin: LatexReferencer,) => {
     around(app.internalPlugins.plugins['page-preview'].instance.constructor.prototype, {
       onLinkHover(old: (...args: unknown[]) => unknown,) {
         return function(
+          this: any,
           parent: HoverParent,
           targetEl: HTMLElement,
           linktext: string,

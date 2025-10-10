@@ -89,7 +89,7 @@ class BeginProofWidget extends ProofWidget {
   ) {
     const children = await renderMarkdown(display, sourcePath, plugin,);
     if (children) {
-      el.replaceChildren(...Array.from(children),);
+      el.replaceChildren(...Array.from(children,),);
     }
   }
 }

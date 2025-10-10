@@ -51,7 +51,7 @@ export class MathSearchModal extends SuggestModal<MathBlock> implements SuggestP
         // recover the last state
         dropdown.setValue(this.plugin.extraSettings.searchModalQueryType,);
 
-        dropdown.onChange((value: string) => {
+        dropdown.onChange((value: string,) => {
           this.queryType = value as QueryType;
           this.resetCore();
           // @ts-expect-error - SuggestModal.onInput is protected
@@ -73,7 +73,7 @@ export class MathSearchModal extends SuggestModal<MathBlock> implements SuggestP
 
         // recover the last state
         dropdown.setValue(this.plugin.extraSettings.searchModalRange,);
-        dropdown.onChange((value: string) => {
+        dropdown.onChange((value: string,) => {
           this.range = value as SearchRange;
           this.resetCore();
           // @ts-expect-error - SuggestModal.onInput is protected

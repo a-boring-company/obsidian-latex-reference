@@ -7,9 +7,9 @@ echo "🔍 Running pre-commit quality checks..."
 echo "🧹 Cleaning compiled JS files..."
 npm run clean:compiled
 
-# Check TypeScript types (informational - won't block commit)
-echo "📝 Checking TypeScript types (informational)..."
-npm run check-types:build || echo "⚠️  TypeScript strict mode has 11 remaining errors (function return paths)"
+# Check TypeScript types (critical - will block commit)
+echo "📝 Checking TypeScript types..."
+npm run check-types || exit 1
 
 # Run linting (critical - will block commit)
 echo "🔍 Running ESLint..."
