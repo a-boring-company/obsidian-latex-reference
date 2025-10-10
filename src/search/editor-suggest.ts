@@ -12,10 +12,10 @@ import { MathSearchCore, SuggestParent, WholeVaultTheoremEquationSearchCore, } f
 import { QueryType, SearchRange, } from './core';
 
 export class LinkAutocomplete extends EditorSuggest<MathBlock> implements SuggestParent {
-  queryType: QueryType;
-  range: SearchRange;
+  queryType!: QueryType;
+  range!: SearchRange;
   core: MathSearchCore;
-  triggers: Map<string, { range: SearchRange; queryType: QueryType; }>;
+  triggers!: Map<string, { range: SearchRange; queryType: QueryType; }>;
 
   /**
    * @param type The type of the block to search for. See: index/typings/markdown.ts

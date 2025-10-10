@@ -213,7 +213,7 @@ export function findBlockFromReadingViewDom(
   cb: (div: HTMLElement, index: number,) => boolean,
 ): HTMLElement | undefined {
   let index = 0;
-  for (const div of sizerEl.querySelectorAll<HTMLElement>(':scope > div',)) {
+  for (const div of Array.from(sizerEl.querySelectorAll<HTMLElement>(':scope > div',))) {
     if (div.classList.contains('markdown-preview-pusher',)) continue;
     if (div.classList.contains('mod-header',)) continue;
     if (div.classList.contains('mod-footer',)) continue;

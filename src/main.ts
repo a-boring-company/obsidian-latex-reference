@@ -50,21 +50,21 @@ import {
 export const VAULT_ROOT = '/';
 
 export default class LatexReferencer extends Plugin {
-  settings: Record<string, Partial<MathContextSettings>>;
-  extraSettings: ExtraSettings;
-  excludedFiles: string[];
+  settings!: Record<string, Partial<MathContextSettings>>;
+  extraSettings!: ExtraSettings;
+  excludedFiles!: string[];
   dependencies: Record<string, { id: string; name: string; version: string; }> = {
     'mathlinks': { id: 'mathlinks', name: 'MathLinks', version: '0.5.3', },
   };
-  indexManager: MathIndexManager;
-  editorExtensions: Extension[];
-  theoremCalloutsField: StateField<RangeSet<TheoremCalloutInfo>>;
+  indexManager!: MathIndexManager;
+  editorExtensions!: Extension[];
+  theoremCalloutsField!: StateField<RangeSet<TheoremCalloutInfo>>;
   /**
    * Stores the last linktext that triggered a hover page preview.
    * Used by reading view renderers to display theorem/equation numbers in hover previews.
    * Set by page-preview patch, consumed by theorem-callouts/renderer and equations/reading-view.
    */
-  lastHoverLinktext: string | null;
+  lastHoverLinktext!: string | null;
 
   async onload() {
     /** Settings */

@@ -28,7 +28,7 @@ export const createEquationNumberProcessor =
     const mjxContainerElements = el.querySelectorAll<HTMLElement>(
       'mjx-container.MathJax[display="true"]',
     );
-    for (const mjxContainerEl of mjxContainerElements) {
+    for (const mjxContainerEl of Array.from(mjxContainerElements)) {
       ctx.addChild(
         new EquationNumberRenderer(mjxContainerEl, plugin, sourceFile, ctx,),
       );

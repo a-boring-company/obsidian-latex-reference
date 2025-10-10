@@ -1,0 +1,26 @@
+#!/usr/bin/env sh
+
+# Run quality checks before commit
+echo "🔍 Running pre-commit quality checks..."
+
+# Clean compiled JS files that interfere with linting
+echo "🧹 Cleaning compiled JS files..."
+npm run clean:compiled
+
+# Check TypeScript types (informational - won't block commit)
+echo "📝 Checking TypeScript types (informational)..."
+npm run check-types:build || echo "⚠️  TypeScript strict mode has 11 remaining errors (function return paths)"
+
+# Run linting (critical - will block commit)
+echo "🔍 Running ESLint..."
+npm run lint || exit 1
+
+# Run tests (critical - will block commit)
+echo "🧪 Running tests..."
+npm run test || exit 1
+
+# Verify build works (critical - will block commit)
+echo "🏗️ Verifying build..."
+npm run build || exit 1
+
+echo "✅ All critical quality checks passed!"

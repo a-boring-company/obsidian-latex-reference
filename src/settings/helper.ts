@@ -658,6 +658,6 @@ function addFoldOptionSetting(
 
       dropdown.setValue(defaultValue ?? DEFAULT_EXTRA_SETTINGS.foldDefault,);
 
-      dropdown.onChange(onChange,);
+      dropdown.onChange((value: string) => onChange(value as FoldOption));
     },);
 }

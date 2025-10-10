@@ -44,7 +44,7 @@ export const createTheoremCalloutPostProcessor =
     const pdf = isPdfExport(element,);
     let index = 0; // for numbering theorems in PDf export
 
-    for (const calloutEl of element.querySelectorAll<HTMLElement>(`.callout`,)) {
+    for (const calloutEl of Array.from(element.querySelectorAll<HTMLElement>(`.callout`,))) {
       const type = calloutEl.getAttribute('data-callout',)!.toLowerCase();
 
       if (isTheoremCallout(plugin, type,)) {

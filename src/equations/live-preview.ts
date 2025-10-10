@@ -88,7 +88,7 @@ export function createEquationNumberPlugin(plugin: LatexReferencer,) {
           ':scope > .cm-embed-block.math > mjx-container.MathJax[display="true"]',
         );
 
-        for (const mjxContainerEl of mjxContainerElements) {
+        for (const mjxContainerEl of Array.from(mjxContainerElements)) {
           // skip if the equation is being edited to avoid the delay of preview
           const mightBeClosingDollars = mjxContainerEl.parentElement?.previousElementSibling
             ?.lastElementChild;

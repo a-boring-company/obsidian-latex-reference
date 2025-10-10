@@ -22,7 +22,7 @@ import { isEqualToOrChildOf, } from 'utils/obsidian';
 import { resolveSettings, } from 'utils/plugin';
 
 abstract class MathSettingModal<SettingsType,> extends Modal {
-  settings: SettingsType;
+  settings!: SettingsType;
 
   constructor(
     app: App,
@@ -71,7 +71,7 @@ abstract class MathSettingModal<SettingsType,> extends Modal {
 }
 
 export class TheoremCalloutModal extends MathSettingModal<MathSettings> {
-  defaultSettings: Required<MathContextSettings>;
+  defaultSettings!: Required<MathContextSettings>;
 
   constructor(
     app: App,

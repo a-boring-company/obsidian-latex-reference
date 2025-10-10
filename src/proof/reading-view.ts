@@ -16,7 +16,7 @@ export const createProofProcessor =
 
     const settings = resolveSettings(undefined, plugin, file,);
     const codes = element.querySelectorAll<HTMLElement>('code',);
-    for (const code of codes) {
+    for (const code of Array.from(codes)) {
       const text = code.textContent;
       if (!text) continue;
 
@@ -35,7 +35,7 @@ export const createProofProcessor =
     }
   };
 
-function parseAtSignLink(codeEl: HTMLElement,) {
+function parseAtSignLink(codeEl: HTMLElement,): { atSign: ChildNode; links: HTMLElement[]; } | undefined {
   const next = codeEl.nextSibling;
   const afterNext = next?.nextSibling;
   const afterAfterNext = afterNext?.nextSibling;
@@ -49,6 +49,7 @@ function parseAtSignLink(codeEl: HTMLElement,) {
       return { atSign: next, links: [afterNext, afterAfterNext,], };
     }
   }
+  return undefined;
 }
 
 export class ProofRenderer extends MarkdownRenderChild {
@@ -124,7 +125,7 @@ export class ProofRenderer extends MarkdownRenderChild {
       const children = await renderMarkdown(this.display, this.file.path, this.plugin,);
       if (children) {
         const el = createSpan({ cls: makeProofClasses(this.which, profile,), },);
-        el.replaceChildren(...children,);
+        el.replaceChildren(...Array.from(children),);
         this.containerEl.replaceWith(el,);
         this.containerEl = el;
       }
