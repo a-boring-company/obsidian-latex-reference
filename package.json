@@ -1,39 +1,55 @@
 {
-	"name": "obsidian-math-booster",
-	"version": "2.2.0",
-	"description": "An Obsidian.md plugin that provides a powerful indexing & referencing system for theorems & equations in your vault. Bring LaTeX-like workflow into Obsidian with theorem environments, automatic equation numbering, and more.",
-	"engines": {
-		"node": ">=22.0.0"
-	},
-	"scripts": {
-		"dev": "node esbuild.config.mjs",
-		"build": "tsc -noEmit -skipLibCheck && node esbuild.config.mjs production && sass styles.scss styles.css",
-		"dev-style": "sass --watch styles.scss styles.css",
-		"build-style": "sass --watch styles.scss styles.css",
-		"version": "node version-bump.mjs && git add manifest.json versions.json"
-	},
-	"keywords": [],
-	"author": "Ryota Ushio",
-	"license": "MIT",
-	"devDependencies": {
-		"@types/node": "^22.10.2",
-		"@typescript-eslint/eslint-plugin": "^8.18.2",
-		"@typescript-eslint/parser": "^8.18.2",
-		"builtin-modules": "^4.0.0",
-		"esbuild": "^0.25.10",
-		"eslint": "^9.17.0",
-		"obsidian": "latest",
-		"obsidian-mathlinks": "^0.5.1",
-		"obsidian-quick-preview": "latest",
-		"tslib": "^2.8.1",
-		"typescript": "^5.7.2"
-	},
-	"dependencies": {
-		"@codemirror/language": "^6.0.0",
-		"@lezer/common": "^1.0.3",
-		"esbuild-plugin-inline-worker": "^0.1.1",
-		"flatqueue": "^2.0.3",
-		"monkey-around": "^2.3.0",
-		"sorted-btree": "^1.8.1"
-	}
+  "name": "obsidian-latex-reference",
+  "version": "2a.4.0",
+  "description": "An Obsidian.md plugin that provides a powerful indexing & referencing system for theorems & equations in your vault. Bring LaTeX-like workflow into Obsidian with theorem environments, automatic equation numbering, and more.",
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "scripts": {
+    "dev": "node esbuild.config.mjs",
+    "build": "npm run build:compile && npm run build:bundle && npm run build:styles",
+    "build:compile": "tsc -noEmit -skipLibCheck",
+    "build:bundle": "node esbuild.config.mjs production",
+    "build:styles": "sass styles.scss styles.css",
+    "dev-style": "sass --watch styles.scss styles.css",
+    "build-style": "sass --watch styles.scss styles.css",
+    "version": "node version-bump.mjs && git add manifest.json versions.json",
+    "lint": "eslint --fix .",
+    "lint:check": "eslint .",
+    "format": "dprint fmt",
+    "format:check": "dprint check",
+    "spellcheck": "cspell \"**/*.{ts,js,mjs,md,json}\"",
+    "test": "npm run lint:check && npm run format:check && npm run spellcheck && npm run build:compile",
+    "ci": "npm run test && npm run build"
+  },
+  "keywords": [],
+  "author": "Ryota Ushio",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^24.7.0",
+    "@typescript-eslint/eslint-plugin": "^8.18.2",
+    "@typescript-eslint/parser": "^8.18.2",
+    "builtin-modules": "^4.0.0",
+    "cspell": "^9.2.1",
+    "dprint": "^0.50.2",
+    "esbuild": "^0.25.10",
+    "eslint": "^9.17.0",
+    "husky": "^9.1.7",
+    "obsidian": "latest",
+    "obsidian-dev-utils": "^43.1.0",
+    "obsidian-mathlinks": "^0.5.1",
+    "obsidian-quick-preview": "latest",
+    "obsidian-typings": "^3.13.2",
+    "sass": "^1.93.2",
+    "tslib": "^2.8.1",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "@codemirror/language": "^6.0.0",
+    "@lezer/common": "^1.0.3",
+    "esbuild-plugin-inline-worker": "^0.1.1",
+    "flatqueue": "^3.0.0",
+    "monkey-around": "^3.0.0",
+    "sorted-btree": "^1.8.1"
+  }
 }

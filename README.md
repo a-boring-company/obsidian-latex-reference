@@ -21,20 +21,20 @@ https://ryotaushio.github.io/obsidian-latex-theorem-equation-referencer/
 - [Search & link autocomplete](https://ryotaushio.github.io/obsidian-latex-theorem-equation-referencer/search-&-link-autocomplete/search-&-link-autocomplete.html)
   - [Custom link autocomplete](https://ryotaushio.github.io/obsidian-latex-theorem-equation-referencer/search-&-link-autocomplete/custom-link-autocomplete.html)
     - Easily find & insert link to theorems & equations.
-    - Filter theorems & equations based on their locations (*entire vault/recent notes/active note*)
-  - [Search modal](https://ryotaushio.github.io/obsidian-latex-theorem-equation-referencer/search-&-link-autocomplete/search-modal.html): more control & flexibility than editor autocomplete, including *Dataview queries*
+    - Filter theorems & equations based on their locations (_entire vault/recent notes/active note_)
+  - [Search modal](https://ryotaushio.github.io/obsidian-latex-theorem-equation-referencer/search-&-link-autocomplete/search-modal.html): more control & flexibility than editor autocomplete, including _Dataview queries_
 - [Proof environment (experimental)](https://ryotaushio.github.io/obsidian-latex-theorem-equation-referencer/proof-environment.html)
 
 > [!note]
 > For more modular and focused enhancements, some features are planned to be transitioned from this plugin to dedicated, specialized plugins in the near future. Below are the upcoming changes:
-> 
+>
 > #### Transitioning to [**Better Math in Callouts & Blockquotes**](https://github.com/RyotaUshio/obsidian-math-in-callout)
-> 
+>
 > - Rendering equations inside callouts
 > - Multi-line equation support inside blockquotes
-> 
+>
 > #### Transitioning to [**Rendered Block Link Suggestions**](https://github.com/RyotaUshio/obsidian-rendered-block-link-suggestions)
-> 
+>
 > - [Render equations in Obsidian's built-in link suggestions](https://ryotaushio.github.io/obsidian-latex-theorem-equation-referencer/search-&-link-autocomplete/enhancing-obsidian's-built-in-link-autocomplete.html)
 
 Theorems & equations can be **dynamically/automatically numbered**, while you can statically/manually number them if you want.
@@ -59,12 +59,12 @@ You can install this plugin via Obsidian's community plugin browser (see [here](
 
 Also, you can test the latest beta release using [BRAT](https://github.com/TfTHacker/obsidian42-brat):
 
-1.  Install BRAT and enable it.
-2.  Go to **Options**. In the **Beta Plugin List** section, click on the **Add Beta plugin** button.
-3.  Copy and paste `RyotaUshio/obsidian-latex-theorem-equation-referencer` in the pop-up prompt and click on **Add Plugin**.
-4.  _(Optional)_ Turn on **Auto-update plugins at startup** at the top of the page.
-5.  Go to **Community plugins > Installed plugins**. You will find "LaTeX-like Theorem & Equation Referencer" in the list. Click on the toggle button to enable it.
-Since version 2 is still beta, it's not on the community plugin browser yet.
+1. Install BRAT and enable it.
+2. Go to **Options**. In the **Beta Plugin List** section, click on the **Add Beta plugin** button.
+3. Copy and paste `RyotaUshio/obsidian-latex-theorem-equation-referencer` in the pop-up prompt and click on **Add Plugin**.
+4. _(Optional)_ Turn on **Auto-update plugins at startup** at the top of the page.
+5. Go to **Community plugins > Installed plugins**. You will find "LaTeX-like Theorem & Equation Referencer" in the list. Click on the toggle button to enable it.
+   Since version 2 is still beta, it's not on the community plugin browser yet.
 
 ## Dependencies
 

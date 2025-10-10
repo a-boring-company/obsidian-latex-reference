@@ -10,8 +10,9 @@
     "moduleResolution": "bundler",
     "importHelpers": true,
     "isolatedModules": true,
-	  "strictNullChecks": true,
+    "strictNullChecks": true,
     "useDefineForClassFields": false,
+    "types": ["obsidian-typings"],
     "lib": [
       "DOM",
       "ES2022",
@@ -22,6 +23,6 @@
     "**/*.ts"
   ],
   "exclude": [
-    "src/legacy/*.ts",
+    "src/legacy/*.ts"
   ]
 }

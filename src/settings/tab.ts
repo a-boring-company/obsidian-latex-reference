@@ -1,131 +1,134 @@
-import { App, Component, PluginSettingTab, Setting } from "obsidian";
+import { App, Component, PluginSettingTab, Setting, } from 'obsidian';
 
-import LatexReferencer, { VAULT_ROOT } from "../main";
-import { DEFAULT_EXTRA_SETTINGS, DEFAULT_SETTINGS } from "./settings";
-import { ExtraSettingsHelper, MathContextSettingsHelper } from "./helper";
-import { ExcludedFileManageModal, LocalContextSettingsSuggestModal } from "settings/modals";
+import { ExcludedFileManageModal, LocalContextSettingsSuggestModal, } from 'settings/modals';
+import LatexReferencer, { VAULT_ROOT, } from '../main';
+import { ExtraSettingsHelper, MathContextSettingsHelper, } from './helper';
+import { DEFAULT_EXTRA_SETTINGS, DEFAULT_SETTINGS, } from './settings';
 // import { PROJECT_DESCRIPTION } from "project";
 
-
 export class MathSettingTab extends PluginSettingTab {
-    component: Component;
+  component: Component;
 
-    constructor(app: App, public plugin: LatexReferencer) {
-        super(app, plugin);
-        this.component = new Component();
-    }
+  constructor(app: App, public plugin: LatexReferencer,) {
+    super(app, plugin,);
+    this.component = new Component();
+  }
 
-    addRestoreDefaultsButton() {
-        new Setting(this.containerEl)
-            .addButton((btn) => {
-                btn.setButtonText("Restore defaults");
-                btn.onClick(async () => {
-                    Object.assign(this.plugin.settings[VAULT_ROOT], DEFAULT_SETTINGS);
-                    Object.assign(this.plugin.extraSettings, DEFAULT_EXTRA_SETTINGS);
-                    this.display();
-                })
-            });
-    }
+  addRestoreDefaultsButton() {
+    new Setting(this.containerEl,)
+      .addButton((btn,) => {
+        btn.setButtonText('Restore defaults',);
+        btn.onClick(async () => {
+          Object.assign(this.plugin.settings[VAULT_ROOT], DEFAULT_SETTINGS,);
+          Object.assign(this.plugin.extraSettings, DEFAULT_EXTRA_SETTINGS,);
+          this.display();
+        },);
+      },);
+  }
 
-    display() {
-        const { containerEl } = this;
-        containerEl.empty();
-        this.component.load();
+  display() {
+    const { containerEl, } = this;
+    containerEl.empty();
+    this.component.load();
 
-        containerEl.createEl("h4", { text: "Global" });
+    containerEl.createEl('h4', { text: 'Global', },);
 
-        const root = this.app.vault.getRoot();
-        const globalHelper = new MathContextSettingsHelper(
-            this.containerEl,
-            this.plugin.settings[VAULT_ROOT],
-            DEFAULT_SETTINGS,
-            this.plugin,
-            root
-        );
-        this.component.addChild(globalHelper);
+    const root = this.app.vault.getRoot();
+    const globalHelper = new MathContextSettingsHelper(
+      this.containerEl,
+      this.plugin.settings[VAULT_ROOT],
+      DEFAULT_SETTINGS,
+      this.plugin,
+      root,
+    );
+    this.component.addChild(globalHelper,);
 
-        const extraHelper = new ExtraSettingsHelper(
-            this.containerEl,
-            this.plugin.extraSettings,
-            this.plugin.extraSettings,
-            this.plugin,
-            false, 
-            false
-        );
-        this.component.addChild(extraHelper);
+    const extraHelper = new ExtraSettingsHelper(
+      this.containerEl,
+      this.plugin.extraSettings,
+      this.plugin.extraSettings,
+      this.plugin,
+      false,
+      false,
+    );
+    this.component.addChild(extraHelper,);
 
-        const heading = extraHelper.addHeading('Equations - general');
-        const numberingHeading = this.containerEl.querySelector<HTMLElement>('.equation-heading')!;
-        this.containerEl.insertBefore(
-            heading.settingEl,
-            numberingHeading
-        );
-        this.containerEl.insertAfter(
-            extraHelper.settingRefs.enableProof.settingEl,
-            this.containerEl.querySelector('.proof-heading')!
-        );
-        this.containerEl.insertAfter(
-            extraHelper.settingRefs.showTheoremCalloutEditButton.settingEl, 
-            globalHelper.settingRefs.profile.settingEl
-        );
-        this.containerEl.insertAfter(
-            extraHelper.settingRefs.excludeExampleCallout.settingEl, 
-            globalHelper.settingRefs.profile.settingEl
-        );
-        this.containerEl.insertBefore(
-            extraHelper.settingRefs.foldDefault.settingEl, 
-            globalHelper.settingRefs.labelPrefix.settingEl
-        );
-        this.containerEl.insertBefore(
-            extraHelper.settingRefs.setOnlyTheoremAsMain.settingEl, 
-            globalHelper.settingRefs.labelPrefix.settingEl
-        );
-        this.containerEl.insertBefore(
-            extraHelper.settingRefs.setLabelInModal.settingEl, 
-            globalHelper.settingRefs.labelPrefix.settingEl
-        );
-        this.containerEl.insertAfter(
-            extraHelper.settingRefs.noteTitleInTheoremLink.settingEl, 
-            globalHelper.settingRefs.refFormat.settingEl
-        );
-        this.containerEl.insertAfter(
-            extraHelper.settingRefs.noteTitleInEquationLink.settingEl, 
-            globalHelper.settingRefs.eqRefSuffix.settingEl
-        );
+    const heading = extraHelper.addHeading('Equations - general',);
+    const numberingHeading = this.containerEl.querySelector<HTMLElement>('.equation-heading',)!;
+    this.containerEl.insertBefore(
+      heading.settingEl,
+      numberingHeading,
+    );
+    this.containerEl.insertAfter(
+      extraHelper.settingRefs.enableProof.settingEl,
+      this.containerEl.querySelector('.proof-heading',)!,
+    );
+    this.containerEl.insertAfter(
+      extraHelper.settingRefs.showTheoremCalloutEditButton.settingEl,
+      globalHelper.settingRefs.profile.settingEl,
+    );
+    this.containerEl.insertAfter(
+      extraHelper.settingRefs.excludeExampleCallout.settingEl,
+      globalHelper.settingRefs.profile.settingEl,
+    );
+    this.containerEl.insertBefore(
+      extraHelper.settingRefs.foldDefault.settingEl,
+      globalHelper.settingRefs.labelPrefix.settingEl,
+    );
+    this.containerEl.insertBefore(
+      extraHelper.settingRefs.setOnlyTheoremAsMain.settingEl,
+      globalHelper.settingRefs.labelPrefix.settingEl,
+    );
+    this.containerEl.insertBefore(
+      extraHelper.settingRefs.setLabelInModal.settingEl,
+      globalHelper.settingRefs.labelPrefix.settingEl,
+    );
+    this.containerEl.insertAfter(
+      extraHelper.settingRefs.noteTitleInTheoremLink.settingEl,
+      globalHelper.settingRefs.refFormat.settingEl,
+    );
+    this.containerEl.insertAfter(
+      extraHelper.settingRefs.noteTitleInEquationLink.settingEl,
+      globalHelper.settingRefs.eqRefSuffix.settingEl,
+    );
 
-        this.containerEl.insertBefore(
-            globalHelper.settingRefs.insertSpace.settingEl,
-            extraHelper.settingRefs.searchMethod.settingEl,
-        );
+    this.containerEl.insertBefore(
+      globalHelper.settingRefs.insertSpace.settingEl,
+      extraHelper.settingRefs.searchMethod.settingEl,
+    );
 
-        this.addRestoreDefaultsButton();
+    this.addRestoreDefaultsButton();
 
-        containerEl.createEl("h4", { text: "Local" });
-        new Setting(containerEl).setName("Local settings")
-            .setDesc("You can set up local (i.e. file-specific or folder-specific) settings, which have more precedence than the global settings. Local settings can be configured in various ways; here in the plugin settings, right-clicking in the file explorer, the \"Open local settings for the current file\" command, and the \"Open local settings for the current file\" button in the theorem callout settings pop-ups.")
-            .addButton((btn) => {
-                btn.setButtonText("Search files & folders")
-                    .onClick(() => {
-                        new LocalContextSettingsSuggestModal(this.app, this.plugin, this).open();
-                    });
-            });
+    containerEl.createEl('h4', { text: 'Local', },);
+    new Setting(containerEl,).setName('Local settings',)
+      .setDesc(
+        'You can set up local (i.e. file-specific or folder-specific) settings, which have more precedence than the global settings. Local settings can be configured in various ways; here in the plugin settings, right-clicking in the file explorer, the "Open local settings for the current file" command, and the "Open local settings for the current file" button in the theorem callout settings pop-ups.',
+      )
+      .addButton((btn,) => {
+        btn.setButtonText('Search files & folders',)
+          .onClick(() => {
+            new LocalContextSettingsSuggestModal(this.app, this.plugin, this,).open();
+          },);
+      },);
 
-        new Setting(containerEl)
-            .setName("Excluded files")
-            .setDesc("You can make your search results more visible by excluding certain files or folders.")
-            .addButton((btn) => {
-                btn.setButtonText("Manage")
-                    .onClick(() => {
-                        new ExcludedFileManageModal(this.app, this.plugin).open();
-                    });
-            });
-    }
+    new Setting(containerEl,)
+      .setName('Excluded files',)
+      .setDesc(
+        'You can make your search results more visible by excluding certain files or folders.',
+      )
+      .addButton((btn,) => {
+        btn.setButtonText('Manage',)
+          .onClick(() => {
+            new ExcludedFileManageModal(this.app, this.plugin,).open();
+          },);
+      },);
+  }
 
-    async hide() {
-        super.hide();
-        await this.plugin.saveSettings();
-        this.plugin.indexManager.trigger('global-settings-updated');
-        this.plugin.updateLinkAutocomplete();
-        this.component.unload();
-    }
+  async hide() {
+    super.hide();
+    await this.plugin.saveSettings();
+    this.plugin.indexManager.trigger('global-settings-updated',);
+    this.plugin.updateLinkAutocomplete();
+    this.component.unload();
+  }
 }

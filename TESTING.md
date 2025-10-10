@@ -36,7 +36,7 @@ npm run build
 mkdir -p ~/ObsidianTestVault/.obsidian/plugins/
 
 # Symlink this project folder into the test vault
-ln -s "$(pwd)" ~/ObsidianTestVault/.obsidian/plugins/obsidian-math-booster
+ln -s "$(pwd)" ~/ObsidianTestVault/.obsidian/plugins/obsidian-latex-reference
 
 # Rebuild on changes (watch mode)
 npm run dev
@@ -46,20 +46,20 @@ npm run dev
 
 ```bash
 # Copy plugin to vault's plugin folder
-mkdir -p ~/ObsidianTestVault/.obsidian/plugins/obsidian-math-booster/
-cp main.js styles.css manifest.json ~/ObsidianTestVault/.obsidian/plugins/obsidian-math-booster/
+mkdir -p ~/ObsidianTestVault/.obsidian/plugins/obsidian-latex-reference/
+cp main.js styles.css manifest.json ~/ObsidianTestVault/.obsidian/plugins/obsidian-latex-reference/
 ```
 
 ### 3. Enable Plugin in Obsidian
 
 1. Open Obsidian
 2. **Open the test vault**: `File → Open folder → Select ~/ObsidianTestVault`
-3. **Enable Community Plugins**: 
+3. **Enable Community Plugins**:
    - `Settings → Community plugins → Turn off Restricted Mode` (if prompted)
 4. **Enable this plugin**:
-   - `Settings → Community plugins → Installed plugins → Math Booster → Enable`
+   - `Settings → Community plugins → Installed plugins → LaTeX Reference → Enable`
 5. **Configure settings** (optional):
-   - `Settings → Math Booster` (configure theorem styles, prefixes, etc.)
+   - `Settings → LaTeX Reference` (configure theorem styles, prefixes, etc.)
 
 ---
 
@@ -74,7 +74,7 @@ cp main.js styles.css manifest.json ~/ObsidianTestVault/.obsidian/plugins/obsidi
 1. Create a new note: `Test-Theorems.md`
 2. Add the following content:
 
-````markdown
+```markdown
 # Theorem Callouts Test
 
 > [!theorem] Pythagorean Theorem
@@ -91,15 +91,17 @@ cp main.js styles.css manifest.json ~/ObsidianTestVault/.obsidian/plugins/obsidi
 > Assume $n = 2k$ for some integer $k$.
 > Then $n^2 = (2k)^2 = 4k^2 = 2(2k^2)$.
 > Thus $n^2$ is even. ∎
-````
+```
 
 **Expected Results:**
+
 - ✅ Each callout renders with distinct styling (colored boxes)
 - ✅ Theorem callouts show automatic numbering (e.g., "Theorem 1")
 - ✅ Math equations render correctly using MathJax/KaTeX
 - ✅ Proof environment has proper formatting with QED symbol
 
 **Test in Both Views:**
+
 - **Live Preview** (editing mode with rendered callouts)
 - **Reading View** (toggle with `Ctrl/Cmd + E`)
 
@@ -114,7 +116,7 @@ cp main.js styles.css manifest.json ~/ObsidianTestVault/.obsidian/plugins/obsidi
 1. Create a new note: `Test-Equations.md`
 2. Add the following content:
 
-````markdown
+```markdown
 # Equation Numbering Test
 
 Einstein's mass-energy equation:
@@ -129,18 +131,22 @@ $$\nabla \cdot \mathbf{E} = \frac{\rho}{\epsilon_0}$$
 $$\nabla \cdot \mathbf{B} = 0$$
 
 Reference equation (1) here: [[Test-Equations#^equation-1]]
-````
+```
 
 **Expected Results:**
+
 - ✅ Each display equation automatically numbered (1), (2), (3), (4)
 - ✅ Numbers appear on the right side of equations
 - ✅ Equations render properly in both live preview and reading view
 - ✅ Block references work (hovering shows equation preview)
 
 **Advanced**: Add equation labels
-````markdown
-$$E = mc^2$$ ^energy-equation
-````
+
+```markdown
+$$E = mc^2$$
+
+^energy-equation
+```
 
 ---
 
@@ -166,7 +172,7 @@ $$E = mc^2$$ ^energy-equation
 
 2. **Test Search Modal**:
    - Open command palette: `Ctrl/Cmd + P`
-   - Search for: `Math Booster: Search theorems and equations`
+   - Search for: `LaTeX Reference: Search theorems and equations`
    - Type "theorem" in search box
 
    **Expected**: List of all theorems appears with previews
@@ -194,25 +200,26 @@ $$E = mc^2$$ ^energy-equation
 
 1. Create `Test-References.md`:
 
-````markdown
+```markdown
 # Cleveref Test
 
 > [!theorem] Main Result
 > The function $f$ is continuous.
 
-> [!lemma] Supporting Result  
+> [!lemma] Supporting Result\
 > The limit exists.
 
 As shown in [[#Main Result]], we can prove [[#Supporting Result]].
 
 Using equation [[Test-Equations#^equation-1]], we derive...
-````
+```
 
 2. **Check references**:
    - Hover over links to see preview
    - Click links to navigate
 
 **Expected Results:**
+
 - ✅ Links to theorems show "Theorem 1" instead of raw title
 - ✅ Equation links show "(1)" with equation content
 - ✅ Hover preview displays the referenced content
@@ -226,7 +233,7 @@ Using equation [[Test-Equations#^equation-1]], we derive...
 
 **Steps:**
 
-1. **Open Settings**: `Settings → Math Booster`
+1. **Open Settings**: `Settings → LaTeX Reference`
 
 2. **Test Global Settings**:
    - Change theorem prefix: `Thm` → `THM`
@@ -245,6 +252,7 @@ Using equation [[Test-Equations#^equation-1]], we derive...
    - Verify it uses profile settings (different style/numbering)
 
 **Expected Results:**
+
 - ✅ Global settings apply to all notes by default
 - ✅ Profile settings override global for notes in specified folder
 - ✅ Changes take effect without restarting Obsidian
@@ -259,7 +267,7 @@ Using equation [[Test-Equations#^equation-1]], we derive...
 
 1. Create `Test-Nested.md`:
 
-````markdown
+```markdown
 # Nested Equations Test
 
 > Standard blockquote with math:
@@ -268,9 +276,10 @@ Using equation [[Test-Equations#^equation-1]], we derive...
 > [!note] Callout with equation
 > The Fourier transform is defined as:
 > $$\hat{f}(\omega) = \int_{-\infty}^{\infty} f(t) e^{-i\omega t} dt$$
-````
+```
 
 **Expected Results:**
+
 - ✅ Equations render inside blockquotes
 - ✅ Equations render inside callouts (notes, warnings, etc.)
 - ✅ No layout issues or broken rendering
@@ -290,6 +299,7 @@ Using equation [[Test-Equations#^equation-1]], we derive...
    - Choose location and export
 
 **Expected Results:**
+
 - ✅ Theorems render with proper styling in PDF
 - ✅ Equations display correctly with numbering
 - ✅ References are clickable (if supported by viewer)
@@ -302,11 +312,13 @@ Using equation [[Test-Equations#^equation-1]], we derive...
 ### Plugin Not Loading
 
 **Check Console for Errors:**
+
 1. Open Developer Tools: `Ctrl/Cmd + Shift + I`
 2. Go to **Console** tab
-3. Look for red error messages from "Math Booster"
+3. Look for red error messages from "LaTeX Reference"
 
 **Common Causes:**
+
 - Missing `manifest.json` or `main.js`
 - Plugin not enabled in settings
 - Outdated Obsidian version (check manifest `minAppVersion`)
@@ -314,30 +326,36 @@ Using equation [[Test-Equations#^equation-1]], we derive...
 ### Equations Not Rendering
 
 **Verify MathJax/KaTeX is enabled:**
+
 - `Settings → Editor → Math → Enable MathJax`
 - Try different math renderer if available
 
 **Check Syntax:**
+
 - Ensure `$$` on separate lines for display equations
 - Ensure `$` inline math doesn't have spaces: `$x^2$` ✅ `$ x^2 $` ❌
 
 ### Theorems Not Numbered
 
 **Check Settings:**
-- `Settings → Math Booster → Enable automatic numbering`
+
+- `Settings → LaTeX Reference → Enable automatic numbering`
 - Verify theorem callout syntax: `> [!theorem]` (case-sensitive)
 
 **Rebuild Index:**
-- Command palette: `Math Booster: Rebuild index`
+
+- Command palette: `LaTeX Reference: Rebuild index`
 - Reload Obsidian: `Ctrl/Cmd + R`
 
 ### Autocomplete Not Working
 
 **Enable in Settings:**
-- `Settings → Math Booster → Enable link autocomplete`
-- `Settings → Math Booster → Enable editor autocomplete`
+
+- `Settings → LaTeX Reference → Enable link autocomplete`
+- `Settings → LaTeX Reference → Enable editor autocomplete`
 
 **Check Trigger:**
+
 - Default trigger is `[[` for links
 - May need to type a few characters before suggestions appear
 
@@ -357,6 +375,7 @@ Currently, Obsidian plugins require manual testing due to UI/app integration. Po
 3. **E2E Tests**: Use Playwright/Puppeteer with Obsidian app
 
 **Current Limitations:**
+
 - Obsidian API requires full app context (Vault, MetadataCache, Editor)
 - No official test framework from Obsidian
 - Plugin rendering depends on Electron/browser environment
@@ -368,8 +387,9 @@ Currently, Obsidian plugins require manual testing due to UI/app integration. Po
 ### Index Rebuild Speed
 
 **Test Large Vault:**
+
 1. Vault with 1000+ notes
-2. Command palette: `Math Booster: Rebuild index`
+2. Command palette: `LaTeX Reference: Rebuild index`
 3. Monitor Developer Console for timing
 
 **Expected**: < 5 seconds for 1000 notes
@@ -377,6 +397,7 @@ Currently, Obsidian plugins require manual testing due to UI/app integration. Po
 ### Search Responsiveness
 
 **Test Search Speed:**
+
 1. Open search modal with 100+ theorems indexed
 2. Type query characters rapidly
 3. Observe lag/delay
@@ -386,6 +407,7 @@ Currently, Obsidian plugins require manual testing due to UI/app integration. Po
 ### Memory Usage
 
 **Monitor Plugin Impact:**
+
 1. Open Developer Console → Memory tab
 2. Take heap snapshot before enabling plugin
 3. Enable plugin and rebuild index
@@ -424,12 +446,14 @@ npm run dev-style
 ```
 
 **Testing Changes:**
+
 1. Edit source files in `src/`
 2. Wait for rebuild (automatic)
 3. Reload Obsidian: `Ctrl/Cmd + R`
 4. Test changes
 
 **Tips:**
+
 - Keep Developer Console open to see errors immediately
 - Use `console.log()` for debugging
 - Test in both Live Preview and Reading View
