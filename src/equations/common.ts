@@ -20,7 +20,7 @@ export function replaceMathTag(
       displayMathEl.removeAttribute('width',);
       displayMathEl.removeAttribute('style',);
     }
-    displayMathEl.replaceChildren(...mjxContainerEl.childNodes,);
+    displayMathEl.replaceChildren(...Array.from(mjxContainerEl.childNodes,),);
   }
 }
 

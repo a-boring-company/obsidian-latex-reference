@@ -94,6 +94,7 @@ export function getSectionCacheFromPos(
     );
     return sectionCache;
   }
+  return undefined;
 }
 
 export function getSectionCacheOfDOM(
@@ -120,7 +121,7 @@ export function getProperty(app: App, file: TFile, name: string,) {
   return app.metadataCache.getFileCache(file,)?.frontmatter?.[name];
 }
 
-export function getPropertyLink(app: App, file: TFile, name: string,) {
+export function getPropertyLink(app: App, file: TFile, name: string,): any {
   const cache = app.metadataCache.getFileCache(file,);
   if (cache?.frontmatterLinks) {
     for (const link of cache.frontmatterLinks) {
@@ -129,6 +130,7 @@ export function getPropertyLink(app: App, file: TFile, name: string,) {
       }
     }
   }
+  return undefined;
 }
 
 export function getPropertyOrLinkTextInProperty(app: App, file: TFile, name: string,) {
@@ -176,13 +178,14 @@ export function getMarkdownPreviewViewEl(view: MarkdownView,) {
   );
 }
 
-export function getMarkdownSourceViewEl(view: MarkdownView,) {
+export function getMarkdownSourceViewEl(view: MarkdownView,): HTMLElement | undefined {
   const firstCandidate = view.editor.cm?.dom.parentElement;
-  if (firstCandidate) return firstCandidate;
+  if (firstCandidate && firstCandidate instanceof HTMLElement) return firstCandidate;
   const secondCandidate = view.previewMode.containerEl.previousSibling;
   if (secondCandidate instanceof HTMLElement && secondCandidate.matches('.markdown-source-view',)) {
     return secondCandidate;
   }
+  return undefined;
 }
 
 export async function openFileAndSelectPosition(
@@ -213,13 +216,14 @@ export function findBlockFromReadingViewDom(
   cb: (div: HTMLElement, index: number,) => boolean,
 ): HTMLElement | undefined {
   let index = 0;
-  for (const div of sizerEl.querySelectorAll<HTMLElement>(':scope > div',)) {
+  for (const div of Array.from(sizerEl.querySelectorAll<HTMLElement>(':scope > div',),)) {
     if (div.classList.contains('markdown-preview-pusher',)) continue;
     if (div.classList.contains('mod-header',)) continue;
     if (div.classList.contains('mod-footer',)) continue;
 
     if (cb(div, index++,)) return div;
   }
+  return undefined;
 }
 
 /**

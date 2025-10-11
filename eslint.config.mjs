@@ -10,7 +10,7 @@ export default [
     languageOptions: {
       parser: tsParser,
       parserOptions: {
-        ecmaVersion: 2020,
+        ecmaVersion: 'latest',
         sourceType: 'module',
         project: './tsconfig.json',
       },
@@ -48,6 +48,16 @@ export default [
         // Web Workers
         onmessage: 'writable',
         postMessage: 'readonly',
+
+        // Jest globals for test files
+        describe: 'readonly',
+        test: 'readonly',
+        expect: 'readonly',
+        beforeAll: 'readonly',
+        beforeEach: 'readonly',
+        afterAll: 'readonly',
+        afterEach: 'readonly',
+        jest: 'readonly',
         self: 'readonly',
 
         // Modern JS APIs
@@ -95,6 +105,8 @@ export default [
       'docs/',
       'styles.css',
       '*.css.map',
+      // Ignore compiled JS files in src directory
+      'src/**/*.js',
     ],
   },
 ];

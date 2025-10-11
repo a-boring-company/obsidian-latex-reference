@@ -3,15 +3,15 @@ import { getFileTitle, } from '../utils/normalizers';
 /** The Obsidian 'link', used for uniquely describing a file, header, or block. */
 export class Link {
   /** The file path this link points to. */
-  public path: string;
+  public path!: string;
   /** The display name associated with the link. */
   public display?: string;
   /** The block ID or header this link points to within a file, if relevant. */
   public subpath?: string;
   /** Is this link an embedded link (of form '![[hello]]')? */
-  public embed: boolean;
+  public embed!: boolean;
   /** The type of this link, which determines what 'subpath' refers to, if anything. */
-  public type: 'file' | 'header' | 'block';
+  public type!: 'file' | 'header' | 'block';
 
   /** Create a link to a specific file. */
   public static file(path: string, embed: boolean = false, display?: string,): Link {

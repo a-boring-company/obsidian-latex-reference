@@ -20,7 +20,7 @@ export const patchLinkCompletion = (plugin: LatexReferencer,) => {
 
   plugin.register(around(prototype, {
     renderSuggestion(old,) {
-      return function(item: any, el: HTMLElement,) {
+      return function(this: any, item: any, el: HTMLElement,) {
         old.call(this, item, el,);
 
         if (

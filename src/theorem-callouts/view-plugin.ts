@@ -21,9 +21,9 @@ export const createTheoremCalloutNumberingViewPlugin = (plugin: LatexReferencer,
         const infos = view.state.field(plugin.theoremCalloutsField,);
 
         for (
-          const calloutEl of view.contentDOM.querySelectorAll<HTMLElement>(
+          const calloutEl of Array.from(view.contentDOM.querySelectorAll<HTMLElement>(
             '.callout.theorem-callout',
-          )
+          ),)
         ) {
           const pos = view.posAtDOM(calloutEl,);
           const iter = infos.iter(pos,);
