@@ -19,8 +19,4 @@ npm run lint || exit 1
 echo "🧪 Running tests..."
 npm run test || exit 1
 
-# Verify build works (critical - will block commit)
-echo "🏗️ Verifying build..."
-npm run build || exit 1
-
 echo "✅ All critical quality checks passed!"

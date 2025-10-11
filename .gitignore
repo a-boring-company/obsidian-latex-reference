@@ -29,3 +29,8 @@ docs/_site/
 
 # Unused
 src/callout_decoration.ts
+
+# Compiled TypeScript output
+src/**/*.js
+
+*.tsbuildinfo

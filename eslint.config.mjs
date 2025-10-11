@@ -105,6 +105,8 @@ export default [
       'docs/',
       'styles.css',
       '*.css.map',
+      // Ignore compiled JS files in src directory
+      'src/**/*.js',
     ],
   },
 ];
